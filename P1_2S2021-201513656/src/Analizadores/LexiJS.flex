@@ -3,6 +3,14 @@ import static Analizadores.Tokenjs.*;
 %%
 %class LexiJS
 %type Tokenjs
+%line
+%column
+%init{
+    yyline = 1;
+    yycolumn = 1;
+%init}
+
+
 L = [a-zA-Z_]+
 D = [0-9]+
 N = [0-9]+("."[0-9]+)?
@@ -10,70 +18,75 @@ C = \"[^\"]*\" /*cadena*/
 COMM = [\/][\*]((.)|"\n")*[\*][\/]
 CHA = [\'](.)[\']
 
-espacio=[ ,\t,\r,\n]+
+espacio=[ ,\t,\r]+
 %{
     public String Lexejs;
+    public int Lineajs;
+    public int Colujs;
 %}
 %%
 
-/*() {Lexejs=yytext(); return ;}*/
+("\n") { yycolumn = 1; }
+/*() {Lexejs=yytext();Lineajs =yyline;Colujs=yycolumn;  return ;}*/
 {espacio} {/*Ignore*/}
 
 /* Comentarios */
-( [\/][\/](.)* ) {Lexejs=yytext(); return COMENTARIO;}
-{COMM} {Lexejs= yytext(); return COM_MULTILINEA;}
+( [\/][\/](.)* ) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn;  return COMENTARIO;}
+{COMM} {Lexejs= yytext(); Lineajs =yyline; Colujs=yycolumn; return COM_MULTILINEA;}
 
-(class) {Lexejs=yytext(); return Clase;}
-(do) {Lexejs=yytext(); return Do;}
-(while) {Lexejs=yytext(); return While;}
-(if) {Lexejs=yytext(); return If;}
-(else) {Lexejs=yytext(); return Else;}
-(var | let | const) {Lexejs=yytext(); return Variable;}
-(String) {Lexejs=yytext(); return Tkstring;}
-(llamada){D} {Lexejs=yytext(); return Llamada;}
-(for) {Lexejs=yytext(); return For;}
-(switch) {Lexejs=yytext(); return Switch;}
-(break) {Lexejs=yytext(); return Break;}
-(require) {Lexejs=yytext(); return Require;}
-(true | false)      {Lexejs = yytext(); return Booleano;}
-(console) {Lexejs=yytext(); return Console;}
-(log) {Lexejs=yytext(); return Log;}
+(class) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Clase;}
+(do) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Do;}
+(while) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return While;}
+(if) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return If;}
+(else) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Else;}
+(var | let | const) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn;  return Variable;}
+(String) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Tkstring;}
+(llamada){D} {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Llamada;}
+(for) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return For;}
+(switch) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Switch;}
+(break) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Break;}
+(require) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Require;}
+(true | false)      {Lexejs = yytext();Lineajs =yyline; Colujs=yycolumn; return Booleano;}
+(console) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Console;}
+(log) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Log;}
+(default) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Default;}
+(case) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Case;}
 
-( "=" ) {Lexejs=yytext(); return Igual;}
-( "+" ) {Lexejs=yytext(); return Suma;}
-( "-" ) {Lexejs=yytext(); return Resta;}
-( "*" ) {Lexejs=yytext(); return Multiplicacion;}
-( "/" ) {Lexejs=yytext(); return Division;}
-( "%" ) {Lexejs=yytext(); return Modulo;}
+( "=" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Igual;}
+( "+" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Suma;}
+( "-" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Resta;}
+( "*" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Multiplicacion;}
+( "/" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Division;}
+( "%" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Modulo;}
 
-( "(" ) {Lexejs=yytext(); return ParentesisA;}
-( ")" ) {Lexejs=yytext(); return ParentesisC;}
-( "{" ) {Lexejs=yytext(); return LlaveA;}
-( "}" ) {Lexejs=yytext(); return LlaveC;}
+( "(" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return ParentesisA;}
+( ")" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return ParentesisC;}
+( "{" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return LlaveA;}
+( "}" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return LlaveC;}
 
-("&&") {Lexejs=yytext(); return And;}
-("||") {Lexejs=yytext(); return Or;}
-("!") {Lexejs=yytext(); return Not;}
+("&&") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return And;}
+("||") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Or;}
+("!") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Not;}
 
-(">") {Lexejs=yytext(); return Mayor;}
-("<") {Lexejs=yytext(); return Menor;}
-("==") {Lexejs=yytext(); return Igualacion;}
-("!=") {Lexejs=yytext(); return Negacion;}
-(">=") {Lexejs=yytext(); return Mayor_Igual;}
-("<=") {Lexejs=yytext(); return Menor_Igual;}
+(">") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Mayor;}
+("<") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Menor;}
+("==") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Igualacion;}
+("!=") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Negacion;}
+(">=") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Mayor_Igual;}
+("<=") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Menor_Igual;}
 
-("++") {Lexejs=yytext(); return Incremente;}
-("--") {Lexejs=yytext(); return Decremento;}
+("++") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Incremente;}
+("--") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Decremento;}
 
-(";") {Lexejs=yytext(); return Punto_y_coma;}
-(".") {Lexejs=yytext(); return Punto;}
-(",") {Lexejs=yytext(); return Coma;}
+(";") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Punto_y_coma;}
+(".") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Punto;}
+(",") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Coma;}
+(":") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Dos_Puntos;}
 
-
-{C} {Lexejs=yytext(); return Cadena;}
-{L}({L}|{D})* {Lexejs=yytext(); return Identificador;}
-{N} {Lexejs=yytext(); return Numero;}
-{CHA} {Lexejs=yytext(); return Char;}
+{C} {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Cadena;}
+{L}({L}|{D})* {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Identificador;}
+{N} {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Numero;}
+{CHA} {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Char;}
 
 /* Error de analisis */
- . {return ERROR;}
+ . {Lexejs=yytext();Lineajs =yyline; return ERROR;}

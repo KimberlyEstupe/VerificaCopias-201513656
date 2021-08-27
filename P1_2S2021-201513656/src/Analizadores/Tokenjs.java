@@ -25,6 +25,8 @@ public enum Tokenjs {
     Booleano,
     Console,
     Log,
+    Default,
+    Case,
     
     Igual,
     Suma,
@@ -46,6 +48,7 @@ public enum Tokenjs {
     Punto_y_coma,
     Punto,
     Coma,
+    Dos_Puntos,
     
     Cadena,
     Numero,

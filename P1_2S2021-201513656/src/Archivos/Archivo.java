@@ -5,6 +5,7 @@
  */
 package Archivos;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,16 +28,23 @@ public class Archivo {
         BufferedWriter buffer = null;
         try {
             buffer = new BufferedWriter(new FileWriter(file));
-            buffer.write(text+"\n");
+            buffer.write(text);
         } catch (IOException e) {
             System.out.println("Error E/S: "+e);
         }
         finally{
             try {
                 buffer.close(); 
-                //String f=fileName;                
-                //f = f.substring(0, f.length() - 4);
-                //imagen(f);
+                
+                //*************** ABRIR EL ARCHIVO DIRECTAMENTE ************/////////////
+                try {
+                    File path = new File (fileName);
+                    Desktop.getDesktop().open(path);
+               }catch (IOException ex) {
+                    ex.printStackTrace();
+               }
+               ///////////////////////////////////////////////////////////////////////////
+                
             } catch (IOException ex) {
                 Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
             }

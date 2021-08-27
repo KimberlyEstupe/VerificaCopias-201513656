@@ -25,8 +25,8 @@ public class FVentanaP extends javax.swing.JFrame {
     String rutaFichero = "";
     String NameArchivo;
     boolean abierto = false;
-     ArrayList<TErrores> rErrores= new ArrayList<TErrores>();
-      ArrayList<RTokens> rTokens= new ArrayList<RTokens>();
+     ArrayList<TErrores> rErrores= new ArrayList<>();
+      ArrayList<RTokens> rTokens= new ArrayList<>();
 
     /**
      * Creates new form FVentanaP
@@ -45,6 +45,32 @@ public class FVentanaP extends javax.swing.JFrame {
      void addError(String lexema, String tipo,String archivo, int linea, int columna){
          TErrores error = new TErrores(lexema, tipo, archivo, linea, columna);
          rErrores.add(error);
+     }
+     
+     public void Reporte(String Titulo, String relleno, String NameDoc){
+         Archivo arc = new Archivo();
+         String html = "<!DOCTYPE HTML5>\n"
+                + "<html>\n"
+                + " <head>\n"
+                + "   <meta charset=\"UTF-8\"/>\n"
+                + "   <title>"+Titulo+"</title> \n"
+                + " </head>\n"
+                + " <body><center>\n"
+                + "    <table border=\"1\"> \n"
+                + "    <caption>"+Titulo+"</caption> \n"
+                + "	 <tr>\n"
+                + "         <th> No. </th>\n"
+                + "         <th> Lexema </th>\n"
+                + "         <th> Tipo </th>\n"
+                + "         <th> Linea </th>\n"
+                + "         <th> Columna </th>\n"
+                + "         <th>Archivo</th>\n"
+                + "	 </tr>\n "+relleno;
+         
+         html += "    </table>\n"
+                + " </center></body>\n"
+                + "</html>";
+         arc.Reportes(html,NameDoc );
      }
 
     
@@ -209,9 +235,19 @@ public class FVentanaP extends javax.swing.JFrame {
         jmReporyes.setText("Resportes");
 
         ReporteErrores.setText("Reporte Errores");
+        ReporteErrores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReporteErroresActionPerformed(evt);
+            }
+        });
         jmReporyes.add(ReporteErrores);
 
         ReporteTokens.setText("Reporte de Tokens");
+        ReporteTokens.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReporteTokensActionPerformed(evt);
+            }
+        });
         jmReporyes.add(ReporteTokens);
 
         jMenuBar1.add(jmReporyes);
@@ -266,10 +302,10 @@ public class FVentanaP extends javax.swing.JFrame {
                 switch(tokens) {
                     case ERROR:
                         resultado += "Error Lexico: simbolo "+lexjs.Lexejs+" no reconocido\n";
-                        addError(lexjs.Lexejs, "Error lexico, simbolo no reconocido", NameArchivo, 5, 6);
+                        addError(lexjs.Lexejs, "Error lexico, simbolo no reconocido", NameArchivo, lexjs.Lineajs, lexjs.Colujs);
                         break;
                     default:
-                        addToken(lexjs.Lexejs,tokens+"",NameArchivo,5,6);
+                        addToken(lexjs.Lexejs,tokens+"",NameArchivo,lexjs.Lineajs,lexjs.Colujs);
                         break;
                 }
             }
@@ -320,6 +356,36 @@ public class FVentanaP extends javax.swing.JFrame {
             }  
         }
     }//GEN-LAST:event_guardarComoActionPerformed
+
+    private void ReporteTokensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteTokensActionPerformed
+        String texto="";
+        for (int i = 0; i < rTokens.size(); i++) {
+            texto += "		<tr>\n"
+                    + "			<td> " + (i + 1) + "</th>\n"
+                    + "			<td> " + rTokens.get(i).getLexema()+ " </td>\n"
+                    + "			<td> " + rTokens.get(i).getToken()+ " </td>\n"
+                    + "			<td> " + rTokens.get(i).getLinea() + " </td>\n"
+                    + "			<td> " + rTokens.get(i).getColuma()+ " </td>\n"
+                    + "			<td> " + rTokens.get(i).getArchivo()+ " </td>\n"
+                    + "		</tr>\n";
+        }
+        Reporte("Reporte de Tokens",texto,"ReportTokens.html");
+    }//GEN-LAST:event_ReporteTokensActionPerformed
+
+    private void ReporteErroresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteErroresActionPerformed
+        String texto="";
+        for (int i = 0; i < rErrores.size(); i++) {
+            texto += "		<tr>\n"
+                    + "			<td> " + (i + 1) + "</th>\n"
+                    + "			<td> " + rErrores.get(i).getLex() + " </td>\n"
+                    + "			<td> " + rErrores.get(i).getTipo() + " </td>\n"
+                    + "			<td> " + rErrores.get(i).getLinea() + " </td>\n"
+                    + "			<td> " + rErrores.get(i).getCol() + " </td>\n"
+                    + "			<td> " + rErrores.get(i).getArc() + " </td>\n"
+                    + "		</tr>\n";
+        }
+        Reporte("Reporte de Erores",texto,"Erores.html");
+    }//GEN-LAST:event_ReporteErroresActionPerformed
 
         
     /**
