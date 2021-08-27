@@ -16,7 +16,6 @@ public enum Tokenjs {
     If,
     Else,
     Variable,
-    Tkstring,
     For,
     Switch,
     Break,

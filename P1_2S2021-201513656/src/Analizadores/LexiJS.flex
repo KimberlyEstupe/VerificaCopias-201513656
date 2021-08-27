@@ -15,6 +15,7 @@ L = [a-zA-Z_]+
 D = [0-9]+
 N = [0-9]+("."[0-9]+)?
 C = \"[^\"]*\" /*cadena*/
+ID =({L}|("_"{L}))({L}|{D}|"_")*
 COMM = [\/][\*]((.)|"\n")*[\*][\/]
 CHA = [\'](.)[\']
 
@@ -40,7 +41,6 @@ espacio=[ ,\t,\r]+
 (if) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return If;}
 (else) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Else;}
 (var | let | const) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn;  return Variable;}
-(String) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Tkstring;}
 (llamada){D} {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Llamada;}
 (for) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return For;}
 (switch) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Switch;}
@@ -84,7 +84,7 @@ espacio=[ ,\t,\r]+
 (":") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Dos_Puntos;}
 
 {C} {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Cadena;}
-{L}({L}|{D})* {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Identificador;}
+{ID} {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Identificador;}
 {N} {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Numero;}
 {CHA} {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Char;}
 

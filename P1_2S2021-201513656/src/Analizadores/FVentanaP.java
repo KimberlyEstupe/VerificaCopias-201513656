@@ -301,7 +301,7 @@ public class FVentanaP extends javax.swing.JFrame {
                 }
                 switch(tokens) {
                     case ERROR:
-                        resultado += "Error Lexico: simbolo "+lexjs.Lexejs+" no reconocido\n";
+                        resultado += "   Error Lexico: simbolo "+lexjs.Lexejs+" no reconocido\n";
                         addError(lexjs.Lexejs, "Error lexico, simbolo no reconocido", NameArchivo, lexjs.Lineajs, lexjs.Colujs);
                         break;
                     default:
