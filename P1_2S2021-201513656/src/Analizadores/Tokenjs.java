@@ -22,15 +22,15 @@ public enum Tokenjs {
     Break,
     Require,
     Llamada,
-    Booleanos,
+    Booleano,
     Console,
     Log,
     
     Igual,
     Suma,
     Resta,
-    Multiplica,
-    Divide,
+    Multiplicacion,
+    Division,
     Potencia,
     Modulo,
     
@@ -40,10 +40,10 @@ public enum Tokenjs {
     LlaveC,
      
     And,Or,Not,
-    Mayor,Menor,Igualacion,Negacion,MayorI,MenorI,
+    Mayor,Menor,Igualacion,Negacion,Mayor_Igual,Menor_Igual,
     Incremente,Decremento,
     
-    PComa,
+    Punto_y_coma,
     Punto,
     Coma,
     

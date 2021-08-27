@@ -5,9 +5,9 @@
  */
 package Analizadores;
 
+import JFlex.SilentExit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jflex.exceptions.SilentExit;
 
 /**
  *
@@ -22,7 +22,7 @@ public class Pruebas {
         String ruta= "src/Analizadores/";
         try {
             String opcFlex[] = {ruta+"LexiJS.flex", "-d", ruta};
-            jflex.Main.generate(opcFlex);
+            JFlex.Main.generate(opcFlex);
         } catch (SilentExit ex) {
             Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
         }

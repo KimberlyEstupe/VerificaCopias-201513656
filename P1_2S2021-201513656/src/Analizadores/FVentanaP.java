@@ -13,7 +13,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import jflex.exceptions.SilentExit;
+import JFlex.SilentExit;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,7 +23,10 @@ import jflex.exceptions.SilentExit;
  */
 public class FVentanaP extends javax.swing.JFrame {
     String rutaFichero = "";
+    String NameArchivo;
     boolean abierto = false;
+     ArrayList<TErrores> rErrores= new ArrayList<TErrores>();
+      ArrayList<RTokens> rTokens= new ArrayList<RTokens>();
 
     /**
      * Creates new form FVentanaP
@@ -29,8 +34,18 @@ public class FVentanaP extends javax.swing.JFrame {
     public FVentanaP() {
         initComponents();
         this.setTitle("FIUSAC Copy Analyzer");
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null); 
     }
+    
+     void addToken(String lexema, String tipo, String archivo, int linea, int columna){
+        RTokens token= new RTokens(lexema, tipo, archivo, linea, columna);
+        rTokens.add(token);
+     }  
+     
+     void addError(String lexema, String tipo,String archivo, int linea, int columna){
+         TErrores error = new TErrores(lexema, tipo, archivo, linea, columna);
+         rErrores.add(error);
+     }
 
     
     @SuppressWarnings("unchecked")
@@ -250,10 +265,11 @@ public class FVentanaP extends javax.swing.JFrame {
                 }
                 switch(tokens) {
                     case ERROR:
-                        resultado += "El simpocolo no definido \n";
+                        resultado += "Error Lexico: simbolo "+lexjs.Lexejs+" no reconocido\n";
+                        addError(lexjs.Lexejs, "Error lexico, simbolo no reconocido", NameArchivo, 5, 6);
                         break;
                     default:
-                        resultado +=lexjs.Lexejs+" \t Es un "+ tokens + "\n";
+                        addToken(lexjs.Lexejs,tokens+"",NameArchivo,5,6);
                         break;
                 }
             }
@@ -270,7 +286,8 @@ public class FVentanaP extends javax.swing.JFrame {
         if (x == JFileChooser.APPROVE_OPTION) {
             File fichero = Narchivo.getSelectedFile();            
             rutaFichero = fichero.getAbsolutePath();
-            if (fichero.getName().endsWith("fca")) {// verifica extension                
+            NameArchivo = fichero.getName();
+            if (NameArchivo.endsWith("fca")) {// verifica extension                
                 abierto = true;
                 try(FileReader FR = new FileReader(fichero)){
                     String textoF ="";

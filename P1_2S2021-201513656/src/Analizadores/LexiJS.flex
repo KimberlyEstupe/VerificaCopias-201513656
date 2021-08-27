@@ -35,15 +35,15 @@ espacio=[ ,\t,\r,\n]+
 (switch) {Lexejs=yytext(); return Switch;}
 (break) {Lexejs=yytext(); return Break;}
 (require) {Lexejs=yytext(); return Require;}
-(true | false)      {Lexejs = yytext(); return Booleanos;}
+(true | false)      {Lexejs = yytext(); return Booleano;}
 (console) {Lexejs=yytext(); return Console;}
 (log) {Lexejs=yytext(); return Log;}
 
 ( "=" ) {Lexejs=yytext(); return Igual;}
 ( "+" ) {Lexejs=yytext(); return Suma;}
 ( "-" ) {Lexejs=yytext(); return Resta;}
-( "*" ) {Lexejs=yytext(); return Multiplica;}
-( "/" ) {Lexejs=yytext(); return Divide;}
+( "*" ) {Lexejs=yytext(); return Multiplicacion;}
+( "/" ) {Lexejs=yytext(); return Division;}
 ( "%" ) {Lexejs=yytext(); return Modulo;}
 
 ( "(" ) {Lexejs=yytext(); return ParentesisA;}
@@ -59,13 +59,13 @@ espacio=[ ,\t,\r,\n]+
 ("<") {Lexejs=yytext(); return Menor;}
 ("==") {Lexejs=yytext(); return Igualacion;}
 ("!=") {Lexejs=yytext(); return Negacion;}
-(">=") {Lexejs=yytext(); return MayorI;}
-("<=") {Lexejs=yytext(); return MenorI;}
+(">=") {Lexejs=yytext(); return Mayor_Igual;}
+("<=") {Lexejs=yytext(); return Menor_Igual;}
 
 ("++") {Lexejs=yytext(); return Incremente;}
 ("--") {Lexejs=yytext(); return Decremento;}
 
-(";") {Lexejs=yytext(); return PComa;}
+(";") {Lexejs=yytext(); return Punto_y_coma;}
 (".") {Lexejs=yytext(); return Punto;}
 (",") {Lexejs=yytext(); return Coma;}
 
