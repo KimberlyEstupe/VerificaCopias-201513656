@@ -51,14 +51,14 @@ public class FVentanaP extends javax.swing.JFrame {
          Archivo arc = new Archivo();
          String html = "<!DOCTYPE HTML5>\n"
                 + "<html>\n"
-                + " <head>\n"
+                + " <head><center>\n"
                 + "   <meta charset=\"UTF-8\"/>\n"
-                + "   <title>"+Titulo+"</title> \n"
-                + " </head>\n"
+                + "   <h1 bgcolor=\"#0C0C4B\" >"+Titulo+"</h1> \n"
+                + " </center></head>\n"
                 + " <body><center>\n"
-                + "    <table border=\"1\"> \n"
-                + "    <caption>"+Titulo+"</caption> \n"
-                + "	 <tr>\n"
+                + "    <table align=\"center\" cellspacing=\"2\" cellpadding=\"2\" border=\"1\"> \n"
+               
+                + "	 <tr bgcolor=\"94F4D1\" align=\"center\">\n"
                 + "         <th> No. </th>\n"
                 + "         <th> Lexema </th>\n"
                 + "         <th> Tipo </th>\n"
@@ -304,8 +304,23 @@ public class FVentanaP extends javax.swing.JFrame {
                         resultado += "   Error Lexico: simbolo "+lexjs.Lexejs+" no reconocido\n";
                         addError(lexjs.Lexejs, "Error lexico, simbolo no reconocido", NameArchivo, lexjs.Lineajs, lexjs.Colujs);
                         break;
-                    default:
-                        addToken(lexjs.Lexejs,tokens+"",NameArchivo,lexjs.Lineajs,lexjs.Colujs);
+                        
+                    case Clase: case Do: case While: case If: case Else: case Variable: case Llamada:
+                    case  For: case Switch: case Break: case Require: case Console: case Log: case Default:
+                    case  Case:
+                        addToken(lexjs.Lexejs," Reservada "+tokens,NameArchivo,lexjs.Lineajs,lexjs.Colujs);
+                        break;
+                    case Suma: case Resta: case Multiplicacion: case Division:  case Modulo:
+                        addToken(lexjs.Lexejs," Operador Aritmetico "+tokens,NameArchivo,lexjs.Lineajs,lexjs.Colujs);
+                        break;
+                    case And: case Or: case Not:
+                        addToken(lexjs.Lexejs," Operador Logico "+tokens,NameArchivo,lexjs.Lineajs,lexjs.Colujs);
+                        break;
+                    case Mayor: case Menor: case Menor_Igual: case Mayor_Igual: case Igualacion: case Negacion:
+                        addToken(lexjs.Lexejs," Operador Relacional "+tokens,NameArchivo,lexjs.Lineajs,lexjs.Colujs);
+                        break;
+                    default: 
+                        addToken(lexjs.Lexejs,tokens+" ",NameArchivo,lexjs.Lineajs,lexjs.Colujs);
                         break;
                 }
             }
@@ -369,7 +384,7 @@ public class FVentanaP extends javax.swing.JFrame {
                     + "			<td> " + rTokens.get(i).getArchivo()+ " </td>\n"
                     + "		</tr>\n";
         }
-        Reporte("Reporte de Tokens",texto,"ReportTokens.html");
+        Reporte("Reporte de Tokens",texto,"ReporteTokens.html");
     }//GEN-LAST:event_ReporteTokensActionPerformed
 
     private void ReporteErroresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteErroresActionPerformed
@@ -384,7 +399,7 @@ public class FVentanaP extends javax.swing.JFrame {
                     + "			<td> " + rErrores.get(i).getArc() + " </td>\n"
                     + "		</tr>\n";
         }
-        Reporte("Reporte de Erores",texto,"Erores.html");
+        Reporte("Reporte de Erores",texto,"ReporteErrores.html");
     }//GEN-LAST:event_ReporteErroresActionPerformed
 
         

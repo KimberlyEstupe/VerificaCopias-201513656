@@ -14,6 +14,8 @@ ID =({L}|("_"{L}))({L}|{D}|"_")*
 C = \"[^\"]*\" /*cadena*/
 COMM = [\/][\*]((.)|"\n")*[\*][\/]
 CHA = [\'](.)[\']
+espacio=[ |\t|\r]+
+
 %{
     private Symbol symbol(int type, Object value){
         return new Symbol(type, yyline, yycolumn, value);

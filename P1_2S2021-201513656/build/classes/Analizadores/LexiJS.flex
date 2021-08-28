@@ -19,7 +19,7 @@ ID =({L}|("_"{L}))({L}|{D}|"_")*
 COMM = [\/][\*]((.)|"\n")*[\*][\/]
 CHA = [\'](.)[\']
 
-espacio=[ ,\t,\r]+
+espacio=[ |\t|\r]+
 %{
     public String Lexejs;
     public int Lineajs;
@@ -46,7 +46,8 @@ espacio=[ ,\t,\r]+
 (switch) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Switch;}
 (break) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Break;}
 (require) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Require;}
-(true | false)      {Lexejs = yytext();Lineajs =yyline; Colujs=yycolumn; return Booleano;}
+(true)      {Lexejs = yytext();Lineajs =yyline; Colujs=yycolumn; return True;}
+(false)      {Lexejs = yytext();Lineajs =yyline; Colujs=yycolumn; return False;}
 (console) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Console;}
 (log) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Log;}
 (default) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Default;}
@@ -80,7 +81,7 @@ espacio=[ ,\t,\r]+
 
 (";") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Punto_y_coma;}
 (".") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Punto;}
-(",") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Coma;}
+("\,") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Coma;}
 (":") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Dos_Puntos;}
 
 {C} {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Cadena;}
@@ -89,4 +90,4 @@ espacio=[ ,\t,\r]+
 {CHA} {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Char;}
 
 /* Error de analisis */
- . {Lexejs=yytext();Lineajs =yyline; return ERROR;}
+ . {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return ERROR;}
