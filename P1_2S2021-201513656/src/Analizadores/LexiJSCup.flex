@@ -52,18 +52,18 @@ espacio=[ |\t|\r]+
 (default)           {return new Symbol(sym.Default, yycolumn, yyline, yytext());}
 (case)              {return new Symbol(sym.Case, yycolumn, yyline, yytext());}
 
-("&&" | "||" | "!")                             {return new Symbol(sym.Logicos, yycolumn, yyline, yytext());}
-("+" | "-" | "*" | "/" | "%")                   {return new Symbol(sym.Matematicos, yycolumn, yyline, yytext());}
+("&&" | "||" | "!")                             {return new Symbol(sym.Logico, yycolumn, yyline, yytext());}
+("+" | "-" | "*" | "/" | "%")                   {return new Symbol(sym.Matematico, yycolumn, yyline, yytext());}
 ("=")                                           {return new Symbol(sym.Igual, yycolumn, yyline, yytext());}
 ("<" | ">" | "==" | "!=" | ">=" | "<=")         {return new Symbol(sym.Relacionales, yycolumn, yyline, yytext());}
 ("++" | "--")                                   {return new Symbol(sym.Incremento, yycolumn, yyline, yytext());}
 
-("(")        {return new Symbol(sym.ParentesisA, yycolumn, yyline, yytext());}
-(")")        {return new Symbol(sym.ParentesisC, yycolumn, yyline, yytext());}
+("(")        {return new Symbol(sym.ParenA, yycolumn, yyline, yytext());}
+(")")        {return new Symbol(sym.ParenC, yycolumn, yyline, yytext());}
 ("{")        {return new Symbol(sym.LlaveA, yycolumn, yyline, yytext());}
 ("}")        {return new Symbol(sym.LlaveC, yycolumn, yyline, yytext());}
 
-(".")        {return new Symbol(symPunto., yycolumn, yyline, yytext());}
+(".")        {return new Symbol(sym.Punto, yycolumn, yyline, yytext());}
 (";")        {return new Symbol(sym.PComa, yycolumn, yyline, yytext());}
 (":")        {return new Symbol(sym.DPuntos, yycolumn, yyline, yytext());}
 (",")        {return new Symbol(sym.Coma, yycolumn, yyline, yytext());}

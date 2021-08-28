@@ -19,7 +19,7 @@ ID =({L}|("_"{L}))({L}|{D}|"_")*
 COMM = [\/][\*]((.)|"\n")*[\*][\/]
 CHA = [\'](.)[\']
 
-espacio=[ |\t|\r]+
+espacio=[ \t\r]+
 %{
     public String Lexejs;
     public int Lineajs;
@@ -60,10 +60,10 @@ espacio=[ |\t|\r]+
 ( "/" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Division;}
 ( "%" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Modulo;}
 
-( "(" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return ParentesisA;}
-( ")" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return ParentesisC;}
-( "{" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return LlaveA;}
-( "}" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return LlaveC;}
+( "(" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Parentesis_Apertura;}
+( ")" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Parentesis_Cierre;}
+( "{" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Llave_Apertura;}
+( "}" ) {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Llave_Cierre;}
 
 ("&&") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return And;}
 ("||") {Lexejs=yytext();Lineajs =yyline; Colujs=yycolumn; return Or;}

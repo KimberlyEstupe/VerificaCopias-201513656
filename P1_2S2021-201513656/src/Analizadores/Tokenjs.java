@@ -36,10 +36,10 @@ public enum Tokenjs {
     Potencia,
     Modulo,
     
-    ParentesisA,
-    ParentesisC,
-    LlaveA,
-    LlaveC,
+    Parentesis_Apertura,
+    Parentesis_Cierre,
+    Llave_Apertura,
+    Llave_Cierre,
      
     And,Or,Not,
     Mayor,Menor,Igualacion,Negacion,Mayor_Igual,Menor_Igual,

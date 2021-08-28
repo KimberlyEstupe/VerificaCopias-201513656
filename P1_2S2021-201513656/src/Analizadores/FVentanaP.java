@@ -53,7 +53,7 @@ public class FVentanaP extends javax.swing.JFrame {
                 + "<html>\n"
                 + " <head><center>\n"
                 + "   <meta charset=\"UTF-8\"/>\n"
-                + "   <h1 bgcolor=\"#0C0C4B\" >"+Titulo+"</h1> \n"
+                + "   <h1 style=\"color:#5B2C6F\">"+Titulo+"</h1> \n"
                 + " </center></head>\n"
                 + " <body><center>\n"
                 + "    <table align=\"center\" cellspacing=\"2\" cellpadding=\"2\" border=\"1\"> \n"
