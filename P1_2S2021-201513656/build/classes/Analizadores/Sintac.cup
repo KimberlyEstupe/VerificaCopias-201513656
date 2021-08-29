@@ -17,12 +17,14 @@ parser code
 terminal Clase, Do, While, If, Else, Variable, Llamada, For, Switch, Break, Require, Bool, Console,
         Log, Default, Case, 
         Logico, Matematico, Igual, Relacionales, Incremento,
-        ParenA, PareC, LlaveA, LlaveC, Punto, Coma, PComa, DPuntos,
-        Cadena, Numero, Identificador;
+        ParenA, ParenC, LlaveA, LlaveC, Punto, Coma, PComa, DPuntos,
+        Cadena, Numero, Identificador, ERROR;
 
 //------------------------------------ NO TERMINALES --------------------------------------------------
 non terminal INI;
 
 
 //------------------------------------ PRODUCIONES --------------------------------------------------
-INI: Clase Identificador LlaveA LlaveC;
+start with INI;
+
+INI ::= Clase Identificador LlaveA LlaveC;

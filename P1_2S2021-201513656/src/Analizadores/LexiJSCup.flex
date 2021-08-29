@@ -23,11 +23,11 @@ espacio=[ |\t|\r]+
     private Symbol symbol(int type){
         return new Symbol(type, yyline, yycolumn);
     }
-%}um
+%}
 
 %%
 /*--------------------- IGNORA --------------------------------------------------------*/
-("\n") { yycolumn = 1; }
+("\n") { }
 {espacio} {/*Ignore*/}
 ( [\/][\/](.)* ) {/* Comentario */}
 {COMM} {/* Comentario */}
@@ -73,4 +73,4 @@ espacio=[ |\t|\r]+
 ({ID} | {CHA}) {return new Symbol(sym.Identificador, yycolumn, yyline, yytext());}
 
 /* Error de analisis */
- . {return new Symbol(sym.ERROR, yychar, yyline, yytext());}
+ . {return new Symbol(sym.ERROR, yycolumn, yyline, yytext());}

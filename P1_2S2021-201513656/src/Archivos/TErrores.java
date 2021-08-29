@@ -21,26 +21,6 @@ public class TErrores {
         this.columna = columna;
     }
 
-    public void setLexe(String lexema) {
-        this.lexema = lexema;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public void setArc(String archivo) {
-        this.archivo = archivo;
-    }
-
-    public void setLinea(int linea) {
-        this.linea = linea;
-    }
-
-    public void setCol(int columna) {
-        this.columna = columna;
-    }
-
     public String getLex() {
         return lexema;
     }

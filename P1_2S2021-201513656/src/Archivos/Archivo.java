@@ -34,8 +34,7 @@ public class Archivo {
         }
         finally{
             try {
-                buffer.close(); 
-                
+                buffer.close();                 
                 //*************** ABRIR EL ARCHIVO DIRECTAMENTE ************/////////////
                 try {
                     File path = new File (fileName);

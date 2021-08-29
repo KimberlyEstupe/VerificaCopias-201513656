@@ -26,7 +26,7 @@ public class FVentanaP extends javax.swing.JFrame {
     String NameArchivo;
     boolean abierto = false;
      ArrayList<TErrores> rErrores= new ArrayList<>();
-      ArrayList<RTokens> rTokens= new ArrayList<>();
+     ArrayList<RTokens> rTokens= new ArrayList<>();
 
     /**
      * Creates new form FVentanaP
@@ -38,7 +38,7 @@ public class FVentanaP extends javax.swing.JFrame {
     }
     
      void addToken(String lexema, String tipo, String archivo, int linea, int columna){
-        RTokens token= new RTokens(lexema, tipo, archivo, linea, columna);
+        RTokens token = new RTokens(lexema, tipo, archivo, linea, columna);
         rTokens.add(token);
      }  
      
@@ -303,8 +303,7 @@ public class FVentanaP extends javax.swing.JFrame {
                     case ERROR:
                         resultado += "   Error Lexico: simbolo "+lexjs.Lexejs+" no reconocido\n";
                         addError(lexjs.Lexejs, "Error lexico, simbolo no reconocido", NameArchivo, lexjs.Lineajs, lexjs.Colujs);
-                        break;
-                        
+                        break;                        
                     case Clase: case Do: case While: case If: case Else: case Variable: case Llamada:
                     case  For: case Switch: case Break: case Require: case Console: case Log: case Default:
                     case  Case:
@@ -320,7 +319,7 @@ public class FVentanaP extends javax.swing.JFrame {
                         addToken(lexjs.Lexejs," Operador Relacional "+tokens,NameArchivo,lexjs.Lineajs,lexjs.Colujs);
                         break;
                     default: 
-                        addToken(lexjs.Lexejs,tokens+" ",NameArchivo,lexjs.Lineajs,lexjs.Colujs);
+                        addToken(lexjs.Lexejs,tokens+"",NameArchivo,lexjs.Lineajs,lexjs.Colujs);
                         break;
                 }
             }
@@ -376,12 +375,12 @@ public class FVentanaP extends javax.swing.JFrame {
         String texto="";
         for (int i = 0; i < rTokens.size(); i++) {
             texto += "		<tr>\n"
-                    + "			<td> " + (i + 1) + "</th>\n"
-                    + "			<td> " + rTokens.get(i).getLexema()+ " </td>\n"
-                    + "			<td> " + rTokens.get(i).getToken()+ " </td>\n"
-                    + "			<td> " + rTokens.get(i).getLinea() + " </td>\n"
-                    + "			<td> " + rTokens.get(i).getColuma()+ " </td>\n"
-                    + "			<td> " + rTokens.get(i).getArchivo()+ " </td>\n"
+                    + "			<td>" + (i + 1) + "</th>\n"
+                    + "			<td>" + rTokens.get(i).getLexema()+ " </td>\n"
+                    + "			<td>" + rTokens.get(i).getToken()+ " </td>\n"
+                    + "			<td>" + rTokens.get(i).getLinea() + " </td>\n"
+                    + "			<td>" + rTokens.get(i).getColuma()+ " </td>\n"
+                    + "			<td>" + rTokens.get(i).getArchivo()+ " </td>\n"
                     + "		</tr>\n";
         }
         Reporte("Reporte de Tokens",texto,"ReporteTokens.html");

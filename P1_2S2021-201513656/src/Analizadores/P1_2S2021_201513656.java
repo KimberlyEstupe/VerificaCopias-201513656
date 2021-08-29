@@ -5,26 +5,21 @@
  */
 package Analizadores;
 
-import JFlex.SilentExit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Kimbe
  */
-public class Pruebas {
+public class P1_2S2021_201513656 {
     public static void main(String[] args) throws Exception {
         String R1 = "E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/LexiJS.flex";
         String R2 = "E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/LexiJSCup.flex";
-        String[] RS = {"-parser", "Sinac","E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/Sintac.cup"};
+        String[] RS = {"-parser", "Sintac","E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/Sintac.cup"};
         Analizar(R1, R2, RS);
     }
     
@@ -37,16 +32,13 @@ public class Pruebas {
         java_cup.Main.main(RS);
         
         Path rutaSym = Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/sym.java");
-        if (Files.exists(rutaSym)) {  
-           
+        if (Files.exists(rutaSym)) { 
             Files.delete(rutaSym);
         }
         
-        //Mueve la tabla de simbolos a la carpeta codigo
-
         Files.move(
                 Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/sym.java"), 
-                Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/codigo/sym.java")
+                Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/sym.java")
         );
         
         
@@ -60,14 +52,4 @@ public class Pruebas {
                 Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/Sintac.java")
         );
      }
-    
-    public static void AnalizadorJS(){
-        String ruta= "src/Analizadores/";
-        try {
-            String opcFlex[] = {ruta+"LexiJS.flex", "-d", ruta};
-            JFlex.Main.generate(opcFlex);
-        } catch (SilentExit ex) {
-            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }
