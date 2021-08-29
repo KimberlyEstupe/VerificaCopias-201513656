@@ -22,9 +22,9 @@ import javax.swing.JOptionPane;
  */
 public class Pruebas {
     public static void main(String[] args) throws Exception {
-        String R1 = "E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/LexiJS.flex";
-        String R2 = "E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/LexiJSCup.flex";
-        String[] RS = {"-parser", "Sinac","E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/Sintac.cup"};
+        String R1 = "src/Analizadores/LexiJS.flex";
+        String R2 = "src/Analizadores/LexiJSCup.flex";
+        String[] RS = {"-parser", "Sintac","src/Analizadores/Sintac.cup"};
         Analizar(R1, R2, RS);
     }
     
@@ -36,28 +36,24 @@ public class Pruebas {
         JFlex.Main.generate(archivo);
         java_cup.Main.main(RS);
         
-        Path rutaSym = Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/sym.java");
-        if (Files.exists(rutaSym)) {  
-           
+        Path rutaSym = Paths.get("src/Analizadores/sym.java");
+        if (Files.exists(rutaSym)) { 
             Files.delete(rutaSym);
         }
         
-        //Mueve la tabla de simbolos a la carpeta codigo
-
         Files.move(
                 Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/sym.java"), 
-                Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/codigo/sym.java")
-        );
+                Paths.get("src/Analizadores/sym.java")
+        );        
         
-        
-        Path rutaSin = Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/Sintac.java");
+        Path rutaSin = Paths.get("src/Analizadores/Sintac.java");
         if (Files.exists(rutaSin)) {
             
             Files.delete(rutaSin);
         }
         Files.move(
                 Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/Sintac.java"), 
-                Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/src/Analizadores/Sintac.java")
+                Paths.get("src/Analizadores/Sintac.java")
         );
      }
     
