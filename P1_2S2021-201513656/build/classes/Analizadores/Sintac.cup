@@ -18,13 +18,29 @@ terminal Clase, Do, While, If, Else, Variable, Llamada, For, Switch, Break, Requ
         Log, Default, Case, 
         Logico, Matematico, Igual, Relacionales, Incremento,
         ParenA, ParenC, LlaveA, LlaveC, Punto, Coma, PComa, DPuntos,
-        Cadena, Numero, Identificador, ERROR;
+        Cadena, Numero, Identificador;
 
 //------------------------------------ NO TERMINALES --------------------------------------------------
-non terminal INI;
+non terminal INI, CUERPO, CFOR, CIF;
 
 
 //------------------------------------ PRODUCIONES --------------------------------------------------
 start with INI;
 
-INI ::= Clase Identificador LlaveA LlaveC;
+INI ::= 
+    Clase Identificador LlaveA LlaveC
+    | Clase Identificador LlaveA CUERPO LlaveC
+;
+
+CUERPO::=
+    CFOR
+    | CIF
+;
+
+CFOR::= 
+    For
+;
+
+CIF ::=
+    If
+;

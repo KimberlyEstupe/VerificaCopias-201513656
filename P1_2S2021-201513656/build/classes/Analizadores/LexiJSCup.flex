@@ -73,4 +73,4 @@ espacio=[ |\t|\r]+
 ({ID} | {CHA}) {return new Symbol(sym.Identificador, yycolumn, yyline, yytext());}
 
 /* Error de analisis */
- . {return new Symbol(sym.ERROR, yycolumn, yyline, yytext());}
+ . {}

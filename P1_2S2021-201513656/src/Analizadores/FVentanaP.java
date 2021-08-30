@@ -14,8 +14,11 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import JFlex.SilentExit;
+import java.awt.Color;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java_cup.runtime.Symbol;
 
 /**
  *
@@ -276,7 +279,12 @@ public class FVentanaP extends javax.swing.JFrame {
     }//GEN-LAST:event_jmEjecutarActionPerformed
 
     private void jmiEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEjecutarActionPerformed
-         try {
+        AnLexico ();
+        AnSintac();
+    }//GEN-LAST:event_jmiEjecutarActionPerformed
+
+    public void AnLexico (){
+        try {
             // TODO add your handling code here:
             File archivo = new File ("archivo.txt");// Crea el archivo donde se guadara ka entrada
             PrintWriter escribe; // Escribe en el archivo 
@@ -328,8 +336,26 @@ public class FVentanaP extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(FVentanaP.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jmiEjecutarActionPerformed
-
+    }
+    
+    public void AnSintac(){
+        String ST = jtEntrada.getText();
+        Sintac AS = new Sintac(new Analizadores.LexiJSCup(new StringReader(ST)));
+        String RespuestaAS = jtSalida.getText()+"\n \nINICIO ANALISIS SINTACTICO";
+        try {
+           AS.parse();
+           RespuestaAS +="\n Analisis realizado correctamente";
+           
+           jtSalida.setText(RespuestaAS);
+           
+        } catch (Exception ex) {
+            Symbol sym = AS.getS();//viene del sintax.cup es un metodo para obtener el simbolo
+            
+            RespuestaAS += "\nError de sintaxis. Linea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"" ;
+            RespuestaAS +="\nFIN ANALISIS SINTACTICO";
+            jtSalida.setText(RespuestaAS);
+        }
+    }
     private void JMIAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIAbrirActionPerformed
         JFileChooser Narchivo = new JFileChooser(); //crea JFileChooser (visualizacion de fichero)      
         int x = Narchivo.showOpenDialog(this);//escoje el fichero
