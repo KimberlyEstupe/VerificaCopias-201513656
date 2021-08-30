@@ -14,14 +14,14 @@ parser code
 :};
 
 //------------------------------------ TERMINALES --------------------------------------------------
-terminal Clase, Do, While, If, Else, Variable, Llamada, For, Switch, Break, Require, Bool, Console,
+terminal Clase, Do, While, If, Else, Variable, Llamada, For, Switch, Break, Require, Console,
         Log, Default, Case, 
-        Logico, Matematico, Igual, Relacionales, Incremento,
+        Logico, Matematico, Igual, Relacionales, Incremento, Bool,
         ParenA, ParenC, LlaveA, LlaveC, Punto, Coma, PComa, DPuntos,
         Cadena, Numero, Identificador;
 
 //------------------------------------ NO TERMINALES --------------------------------------------------
-non terminal INI, CUERPO, CFOR, CIF;
+non terminal INI, CUERPO, ELSE, CUERPOS;
 
 
 //------------------------------------ PRODUCIONES --------------------------------------------------
@@ -29,18 +29,22 @@ start with INI;
 
 INI ::= 
     Clase Identificador LlaveA LlaveC
-    | Clase Identificador LlaveA CUERPO LlaveC
+    | Clase Identificador LlaveA CUERPOS LlaveC
 ;
+
+CUERPOS::= CUERPO CUERPOS
+    | CUERPO;
 
 CUERPO::=
-    CFOR
-    | CIF
+      For ParenA ParenC LlaveA LlaveC
+    | If ParenA ParenC LlaveA LlaveC ELSE
+    | While ParenA ParenC LlaveA LlaveC
+    | Do LlaveA LlaveC While ParenA ParenC PComa
+    | Switch ParenA ParenC LlaveA LlaveC
 ;
 
-CFOR::= 
-    For
-;
-
-CIF ::=
-    If
+ELSE ::= 
+      Else If ParenA ParenC LlaveA LlaveC ELSE
+    | Else LlaveA LlaveC
+    |   
 ;

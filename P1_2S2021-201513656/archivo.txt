@@ -1,3 +1,24 @@
-class myclase {
-###
+class PRUEBAS1{	
+if (){}
+else if (){}
+else if (){}
+else if (){}
+else {}
+
+for (){}
+
+if (){}
+else if (){}
+else {}
+
+do{}while();
+for (){}
+while(){}
+
+if (){}
+else if (){}
+else if (){}
+else if (){}
+else {}
+
 }
