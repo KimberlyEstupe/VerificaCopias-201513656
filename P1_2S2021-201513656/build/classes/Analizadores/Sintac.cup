@@ -21,30 +21,35 @@ terminal Clase, Do, While, If, Else, Variable, Llamada, For, Switch, Break, Requ
         Cadena, Numero, Identificador;
 
 //------------------------------------ NO TERMINALES --------------------------------------------------
-non terminal INI, CUERPO, ELSE, CUERPOS;
+non terminal INI, SENTENCIA, ELSE, SENTENCIAS, INSTRUCCIONES, CASE, CLASES;
 
 
-//------------------------------------ PRODUCIONES --------------------------------------------------
+
 start with INI;
-
+//------------------------------------ PRODUCIONES --------------------------------------------------
 INI ::= 
     Clase Identificador LlaveA LlaveC
-    | Clase Identificador LlaveA CUERPOS LlaveC
+    | Clase Identificador LlaveA SENTENCIAS LlaveC
 ;
 
-CUERPOS::= CUERPO CUERPOS
-    | CUERPO;
+SENTENCIAS::= SENTENCIA SENTENCIAS
+    | SENTENCIA;
 
-CUERPO::=
-      For ParenA ParenC LlaveA LlaveC
-    | If ParenA ParenC LlaveA LlaveC ELSE
-    | While ParenA ParenC LlaveA LlaveC
-    | Do LlaveA LlaveC While ParenA ParenC PComa
-    | Switch ParenA ParenC LlaveA LlaveC
+SENTENCIA::=
+      For ParenA ParenC LlaveA INSTRUCCIONES LlaveC 
+    | If ParenA ParenC LlaveA INSTRUCCIONES LlaveC  ELSE
+    | While ParenA ParenC LlaveA INSTRUCCIONES LlaveC 
+    | Do LlaveA INSTRUCCIONES LlaveC  While ParenA ParenC PComa
+    | Switch ParenA ParenC LlaveA LlaveC 
 ;
+
+
 
 ELSE ::= 
       Else If ParenA ParenC LlaveA LlaveC ELSE
     | Else LlaveA LlaveC
     |   
 ;
+
+INSTRUCCIONES ::= SENTENCIAS
+|;

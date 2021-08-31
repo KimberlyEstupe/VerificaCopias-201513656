@@ -1,24 +1,19 @@
-class PRUEBAS1{	
-if (){}
-else if (){}
-else if (){}
-else if (){}
-else {}
+class my{
+for(){
 
-for (){}
+if(){}
+else if(){}
+else{}
 
-if (){}
-else if (){}
-else {}
+}
+while(){
 
-do{}while();
-for (){}
-while(){}
+if(){}
+else if(){}
+else{}
 
-if (){}
-else if (){}
-else if (){}
-else if (){}
-else {}
-
+}
+if(){}
+else if(){}
+else{}
 }
