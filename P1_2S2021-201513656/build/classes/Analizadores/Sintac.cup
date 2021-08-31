@@ -21,12 +21,15 @@ terminal Clase, Do, While, If, Else, Variable, Llamada, For, Switch, Break, Requ
         Cadena, Numero, Identificador;
 
 //------------------------------------ NO TERMINALES --------------------------------------------------
-non terminal INI, SENTENCIA, ELSE, SENTENCIAS, INSTRUCCIONES, CASE, CASES;
+non terminal INI, SENTENCIA, ELSE, SENTENCIAS, INSTRUCCIONES, CASE, CASES, INIS, FINEXPRE;
 
 
 
-start with INI;
+start with INIS;
 //------------------------------------ PRODUCIONES --------------------------------------------------
+INIS::= INI INIS
+| INI;
+
 INI ::= 
     Clase Identificador LlaveA LlaveC
     | Clase Identificador LlaveA SENTENCIAS LlaveC
@@ -40,7 +43,8 @@ SENTENCIA::=
     | If ParenA ParenC LlaveA INSTRUCCIONES LlaveC  ELSE
     | While ParenA ParenC LlaveA INSTRUCCIONES LlaveC 
     | Do LlaveA INSTRUCCIONES LlaveC  While ParenA ParenC PComa
-    | Switch ParenA ParenC LlaveA CASES LlaveC 
+    | Switch ParenA ParenC LlaveA CASES LlaveC
+    | Console Punto Log ParenA ParenC FINEXPRE
 ;
 
 INSTRUCCIONES ::= SENTENCIAS
@@ -60,4 +64,6 @@ ELSE ::=
     | Else LlaveA LlaveC
     |   
 ;
+
+FINEXPRE::= PComa |;
 

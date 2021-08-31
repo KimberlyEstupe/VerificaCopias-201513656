@@ -1,7 +1,4 @@
-class my{
-switch(){
-case 1:
-case 2:
-case 3:
-}
+class myC{
+console.log
+;
 }
