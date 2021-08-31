@@ -21,7 +21,7 @@ terminal Clase, Do, While, If, Else, Variable, Llamada, For, Switch, Break, Requ
         Cadena, Numero, Identificador;
 
 //------------------------------------ NO TERMINALES --------------------------------------------------
-non terminal INI, SENTENCIA, ELSE, SENTENCIAS, INSTRUCCIONES, CASE, CLASES;
+non terminal INI, SENTENCIA, ELSE, SENTENCIAS, INSTRUCCIONES, CASE, CASES;
 
 
 
@@ -40,10 +40,20 @@ SENTENCIA::=
     | If ParenA ParenC LlaveA INSTRUCCIONES LlaveC  ELSE
     | While ParenA ParenC LlaveA INSTRUCCIONES LlaveC 
     | Do LlaveA INSTRUCCIONES LlaveC  While ParenA ParenC PComa
-    | Switch ParenA ParenC LlaveA LlaveC 
+    | Switch ParenA ParenC LlaveA CASES LlaveC 
 ;
 
+INSTRUCCIONES ::= SENTENCIAS
+|;
 
+
+CASES::=CASE CASES
+    |CASE
+;
+
+CASE::= Case Identificador DPuntos
+    | Case Numero DPuntos
+;
 
 ELSE ::= 
       Else If ParenA ParenC LlaveA LlaveC ELSE
@@ -51,5 +61,3 @@ ELSE ::=
     |   
 ;
 
-INSTRUCCIONES ::= SENTENCIAS
-|;
