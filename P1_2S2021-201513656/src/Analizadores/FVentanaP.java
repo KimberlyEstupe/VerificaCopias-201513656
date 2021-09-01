@@ -59,7 +59,7 @@ public class FVentanaP extends javax.swing.JFrame {
                 + "   <h1 style=\"color:#5B2C6F\">"+Titulo+"</h1> \n"
                 + " </center></head>\n"
                 + " <body><center>\n"
-                + "    <table align=\"center\" cellspacing=\"2\" cellpadding=\"2\" border=\"1\"> \n"
+                + "    <table align=\"center\" cellspacing=\"2\" cellpadding=\"2\" border=\"1\" > \n"
                
                 + "	 <tr bgcolor=\"94F4D1\" align=\"center\">\n"
                 + "         <th> No. </th>\n"
@@ -279,8 +279,8 @@ public class FVentanaP extends javax.swing.JFrame {
     }//GEN-LAST:event_jmEjecutarActionPerformed
 
     private void jmiEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEjecutarActionPerformed
-        AnLexico ();
-        AnSintac();
+       AnLexico ();
+       AnSintac();
     }//GEN-LAST:event_jmiEjecutarActionPerformed
 
     public void AnLexico (){
@@ -363,7 +363,7 @@ public class FVentanaP extends javax.swing.JFrame {
             File fichero = Narchivo.getSelectedFile();            
             rutaFichero = fichero.getAbsolutePath();
             NameArchivo = fichero.getName();
-            if (NameArchivo.endsWith("fca")) {// verifica extension                
+            if (NameArchivo.endsWith("js")) {// verifica extension                
                 abierto = true;
                 try(FileReader FR = new FileReader(fichero)){
                     String textoF ="";
@@ -372,6 +372,7 @@ public class FVentanaP extends javax.swing.JFrame {
                         textoF+=(char)val;
                         val=FR.read();
                     }
+                    jtEntrada.setText("");
                     jtEntrada.setText(textoF);
                 }catch(IOException e){   
                     e.printStackTrace();

@@ -14,8 +14,8 @@ parser code
 :};
 
 //------------------------------------ TERMINALES --------------------------------------------------
-terminal Clase, Do, While, If, Else, Variable, Llamada, For, Switch, Break, Require, Console,
-        Log, Default, Case, 
+terminal Clase, Do, While, If, Else, Llamada, For, Console, Log,
+        Default, Case, Break, Variable, Switch, Require,
         Logico, Matematico, Igual, Relacionales, Incremento, Bool,
         ParenA, ParenC, LlaveA, LlaveC, Punto, Coma, PComa, DPuntos,
         Cadena, Numero, Identificador;
@@ -45,6 +45,7 @@ SENTENCIA::=
     | Do LlaveA INSTRUCCIONES LlaveC  While ParenA ParenC PComa
     | Switch ParenA ParenC LlaveA CASES LlaveC
     | Console Punto Log ParenA ParenC FINEXPRE
+    | Llamada ParenA ParenC FINEXPRE   
 ;
 
 INSTRUCCIONES ::= SENTENCIAS
@@ -52,7 +53,8 @@ INSTRUCCIONES ::= SENTENCIAS
 
 
 CASES::=CASE CASES
-    |CASE
+    |CASE 
+    | Default DPuntos
 ;
 
 CASE::= Case Identificador DPuntos
@@ -65,5 +67,7 @@ ELSE ::=
     |   
 ;
 
-FINEXPRE::= PComa |;
+FINEXPRE::= PComa | ;
+
+
 
