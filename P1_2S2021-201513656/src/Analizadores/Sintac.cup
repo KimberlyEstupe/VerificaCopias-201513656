@@ -21,7 +21,8 @@ terminal Clase, Do, While, If, Else, Llamada, For, Console, Log,
         Cadena, Numero, Identificador, Char;
 
 //------------------------------------ NO TERMINALES --------------------------------------------------
-non terminal INI, SENTENCIA, ELSE, SENTENCIAS, INSTRUCCIONES, CASE, CASES, INIS, FINEXPRE;
+non terminal INI, SENTENCIA, ELSE, SENTENCIAS, INSTRUCCIONES, CASE, CASES, INIS, FINEXPRE,
+        DECLARA, REQUIRE, INSTRUCCION;
 
 
 
@@ -46,18 +47,22 @@ SENTENCIA::=
     | Switch ParenA ParenC LlaveA CASES LlaveC
     | Console Punto Log ParenA ParenC FINEXPRE
     | Llamada ParenA ParenC FINEXPRE   
+    | DECLARA
+    | Identificador Incremento FINEXPRE
 ;
 
-INSTRUCCIONES ::= SENTENCIAS
+INSTRUCCIONES ::= 
+    SENTENCIAS
+    |Break FINEXPRE
 |;
 
-
 CASES::=CASE CASES
-    |CASE 
+    | CASE 
     | Default DPuntos
 ;
 
 CASE::= Case Identificador DPuntos
+    | Case Char DPuntos
     | Case Numero DPuntos
 ;
 
@@ -67,7 +72,12 @@ ELSE ::=
     |   
 ;
 
+REQUIRE::= Require ParenA ParenC ;
+
 FINEXPRE::= PComa | ;
 
-
+DECLARA::= 
+    Variable Identificador FINEXPRE 
+|   Variable Identificador Igual FINEXPRE ;
+    
 

@@ -189,7 +189,7 @@ public class FVentanaP extends javax.swing.JFrame {
 
         JMIGuardar.setText("Archivo");
 
-        JMIAbrir.setText("Abrir");
+        JMIAbrir.setText("Abrir JS");
         JMIAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JMIAbrirActionPerformed(evt);
@@ -214,7 +214,7 @@ public class FVentanaP extends javax.swing.JFrame {
             }
         });
 
-        jmiEjecutar.setText("Analizar");
+        jmiEjecutar.setText("Analizar JS");
         jmiEjecutar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiEjecutarActionPerformed(evt);
@@ -343,14 +343,14 @@ public class FVentanaP extends javax.swing.JFrame {
         String RespuestaAS = jtSalida.getText()+"\n \nINICIO ANALISIS SINTACTICO";
         try {
            AS.parse();
-           RespuestaAS +="\n Analisis realizado correctamente";
+           RespuestaAS +="\nFIN ANALISIS SINTACTICO";
            
            jtSalida.setText(RespuestaAS);
            
         } catch (Exception ex) {
             Symbol sym = AS.getS();//viene del sintax.cup es un metodo para obtener el simbolo
-            
-            RespuestaAS += "\nError de sintaxis. Linea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"" ;
+            addError(sym.value.toString(), "Error Sintactico", NameArchivo, sym.right + 1, sym.left + 1);
+            RespuestaAS += "\n Error de sintaxis. Linea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"" ;
             RespuestaAS +="\nFIN ANALISIS SINTACTICO";
             jtSalida.setText(RespuestaAS);
         }
