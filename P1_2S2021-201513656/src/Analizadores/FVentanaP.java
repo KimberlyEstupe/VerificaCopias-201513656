@@ -56,12 +56,11 @@ public class FVentanaP extends javax.swing.JFrame {
                 + "<html>\n"
                 + " <head><center>\n"
                 + "   <meta charset=\"UTF-8\"/>\n"
-                + "   <h1 style=\"color:#5B2C6F\">"+Titulo+"</h1> \n"
+                + "   <h1 style=\"color:#EC7063\">"+Titulo+"</h1> \n"
                 + " </center></head>\n"
-                + " <body><center>\n"
-                + "    <table align=\"center\" cellspacing=\"2\" cellpadding=\"2\" border=\"1\" > \n"
-               
-                + "	 <tr bgcolor=\"94F4D1\" align=\"center\">\n"
+                + " <body bgcolor=\"#061626\"><center>\n"
+                + "    <table align=\"center\" cellspacing=\"2\" cellpadding=\"2\" border=\"1\" > \n"      
+                + "	 <tr bgcolor=\"#FAE5D3\" align=\"center\">\n"
                 + "         <th> No. </th>\n"
                 + "         <th> Lexema </th>\n"
                 + "         <th> Tipo </th>\n"
@@ -401,7 +400,7 @@ public class FVentanaP extends javax.swing.JFrame {
     private void ReporteTokensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteTokensActionPerformed
         String texto="";
         for (int i = 0; i < rTokens.size(); i++) {
-            texto += "		<tr>\n"
+            texto += "		<tr style=\"color:#E8DAEF\">\n"
                     + "			<td>" + (i + 1) + "</th>\n"
                     + "			<td>" + rTokens.get(i).getLexema()+ " </td>\n"
                     + "			<td>" + rTokens.get(i).getToken()+ " </td>\n"
@@ -416,7 +415,7 @@ public class FVentanaP extends javax.swing.JFrame {
     private void ReporteErroresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteErroresActionPerformed
         String texto="";
         for (int i = 0; i < rErrores.size(); i++) {
-            texto += "		<tr>\n"
+            texto += "		<tr style=\"color:#E8DAEF\">\n"
                     + "			<td> " + (i + 1) + "</th>\n"
                     + "			<td> " + rErrores.get(i).getLex() + " </td>\n"
                     + "			<td> " + rErrores.get(i).getTipo() + " </td>\n"

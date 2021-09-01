@@ -53,7 +53,9 @@ espacio=[ |\t|\r]+
 (case)              {return new Symbol(sym.Case, yycolumn, yyline, yytext());}
 
 ("&&" | "||" | "!")                             {return new Symbol(sym.Logico, yycolumn, yyline, yytext());}
-("+" | "-" | "*" | "/" | "%")                   {return new Symbol(sym.Matematico, yycolumn, yyline, yytext());}
+("*" | "/" | "%")                               {return new Symbol(sym.Matematico, yycolumn, yyline, yytext());}
+("+")                                           {return new Symbol(sym.Suma, yycolumn, yyline, yytext());}
+("-")                                           {return new Symbol(sym.Resta, yycolumn, yyline, yytext());}
 ("=")                                           {return new Symbol(sym.Igual, yycolumn, yyline, yytext());}
 ("<" | ">" | "==" | "!=" | ">=" | "<=")         {return new Symbol(sym.Relacionales, yycolumn, yyline, yytext());}
 ("++" | "--")                                   {return new Symbol(sym.Incremento, yycolumn, yyline, yytext());}
@@ -68,9 +70,10 @@ espacio=[ |\t|\r]+
 (":")        {return new Symbol(sym.DPuntos, yycolumn, yyline, yytext());}
 (",")        {return new Symbol(sym.Coma, yycolumn, yyline, yytext());}
 
-{C}   {return new Symbol(sym.Cadena, yycolumn, yyline, yytext());}
-{N}   {return new Symbol(sym.Numero, yycolumn, yyline, yytext());}
-({ID} | {CHA}) {return new Symbol(sym.Identificador, yycolumn, yyline, yytext());}
+{C}     {return new Symbol(sym.Cadena, yycolumn, yyline, yytext());}
+{N}     {return new Symbol(sym.Numero, yycolumn, yyline, yytext());}
+{ID}    {return new Symbol(sym.Identificador, yycolumn, yyline, yytext());}
+{CHA}   {return new Symbol(sym.Char, yycolumn, yyline, yytext());}
 
 /* Error de analisis */
  . {}

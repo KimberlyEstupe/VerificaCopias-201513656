@@ -16,9 +16,9 @@ parser code
 //------------------------------------ TERMINALES --------------------------------------------------
 terminal Clase, Do, While, If, Else, Llamada, For, Console, Log,
         Default, Case, Break, Variable, Switch, Require,
-        Logico, Matematico, Igual, Relacionales, Incremento, Bool,
+        Logico, Matematico, Suma, Resta, Igual, Relacionales, Incremento, Bool,
         ParenA, ParenC, LlaveA, LlaveC, Punto, Coma, PComa, DPuntos,
-        Cadena, Numero, Identificador;
+        Cadena, Numero, Identificador, Char;
 
 //------------------------------------ NO TERMINALES --------------------------------------------------
 non terminal INI, SENTENCIA, ELSE, SENTENCIAS, INSTRUCCIONES, CASE, CASES, INIS, FINEXPRE;
