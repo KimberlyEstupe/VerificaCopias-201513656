@@ -6,6 +6,7 @@ parser code
     private Symbol s;
     public void syntax_error(Symbol s){
         this.s = s;
+        System.out.println(s.value.toString());
     }
 
     public Symbol getS(){
@@ -13,18 +14,25 @@ parser code
     }
 :};
 
-//------------------------------------ TERMINALES --------------------------------------------------
+//------------------------------------ TERMINALES -------------------------------------------------- 
+/*viene del Lex*/
 terminal Clase, Do, While, If, Else, Llamada, For, Console, Log,
         Default, Case, Break, Variable, Switch, Require,
-        Logico, Matematico, Suma, Resta, Igual, Relacionales, Incremento, Bool,
+        Logico, Not, Matematico, Suma, Resta, Igual, Relacionales, Incremento, Bool,
         ParenA, ParenC, LlaveA, LlaveC, Punto, Coma, PComa, DPuntos,
         Cadena, Numero, Identificador, Char;
 
-//------------------------------------ NO TERMINALES --------------------------------------------------
-non terminal INI, SENTENCIA, ELSE, SENTENCIAS, INSTRUCCIONES, CASE, CASES, INIS, FINEXPRE,
-        DECLARA, REQUIRE, INSTRUCCION;
+//------------------------------------ NO TERMINALES -------------------------------------------------- 
+/*Son creadas para cup*/
+non terminal INIS, INI, SENTENCIA, SENTENCIAS, INSTRUCCIONES, INSTRUC, PARENTESIS;
+non terminal ELSE, CASE, CASES, FINEXPRE;
+non terminal DECLARA, REQUIRE, EXPRESIONES, EXPRESION, ASIGNACION;
 
 
+precedence right Incremento;
+precedence right Not;
+precedence left Suma, Resta;
+precedence left Matematico;
 
 start with INIS;
 //------------------------------------ PRODUCIONES --------------------------------------------------
@@ -40,28 +48,51 @@ SENTENCIAS::= SENTENCIA SENTENCIAS
     | SENTENCIA;
 
 SENTENCIA::=
-      For ParenA ParenC LlaveA INSTRUCCIONES LlaveC 
-    | If ParenA ParenC LlaveA INSTRUCCIONES LlaveC  ELSE
-    | While ParenA ParenC LlaveA INSTRUCCIONES LlaveC 
-    | Do LlaveA INSTRUCCIONES LlaveC  While ParenA ParenC PComa
-    | Switch ParenA ParenC LlaveA CASES LlaveC
-    | Console Punto Log ParenA ParenC FINEXPRE
+      For PARENTESIS LlaveA INSTRUCCIONES LlaveC 
+    | If PARENTESIS LlaveA INSTRUCCIONES LlaveC  ELSE
+    | While PARENTESIS LlaveA INSTRUCCIONES LlaveC 
+    | Do LlaveA INSTRUCCIONES LlaveC  While PARENTESIS PComa
+    | Switch PARENTESIS LlaveA CASES LlaveC
+    | Console Punto Log PARENTESIS FINEXPRE
     | Llamada ParenA ParenC FINEXPRE   
     | DECLARA
     | Identificador Incremento FINEXPRE
+    | ASIGNACION
 ;
 
-INSTRUCCIONES ::= 
-    SENTENCIAS
-    |Break FINEXPRE
-|;
+INSTRUCCIONES ::= SENTENCIAS
+    | Break FINEXPRE
+    | ;
 
+
+DECLARA::= 
+    Variable Identificador FINEXPRE 
+|   Variable ASIGNACION ;
+
+
+ASIGNACION::= Identificador Igual  EXPRESIONES FINEXPRE;
+
+ EXPRESIONES::= 
+    EXPRESIONES Suma EXPRESIONES
+    | EXPRESIONES Resta EXPRESIONES
+    | EXPRESIONES Matematico EXPRESIONES
+    | Resta EXPRESIONES
+    | Not EXPRESIONES
+    | ParenA EXPRESIONES ParenC
+    /*-- terminales --*/
+    | Numero  
+    | Cadena 
+    | Char 
+    | Bool 
+     ;
+
+/************* Produciones de sentencias **************/
 CASES::=CASE CASES
     | CASE 
     | Default DPuntos
 ;
 
-CASE::= Case Identificador DPuntos
+CASE::= Case Cadena DPuntos
     | Case Char DPuntos
     | Case Numero DPuntos
 ;
@@ -72,12 +103,10 @@ ELSE ::=
     |   
 ;
 
-REQUIRE::= Require ParenA ParenC ;
+REQUIRE::= Require PARENTESIS ;
+
+/*********** PRODUCIONES REPETITIVAS************/
+PARENTESIS::= ParenA ParenC
+    | ParenA EXPRESIONES ParenC;
 
 FINEXPRE::= PComa | ;
-
-DECLARA::= 
-    Variable Identificador FINEXPRE 
-|   Variable Identificador Igual FINEXPRE ;
-    
-
