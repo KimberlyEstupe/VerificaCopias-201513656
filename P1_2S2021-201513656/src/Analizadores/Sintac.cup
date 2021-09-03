@@ -31,8 +31,10 @@ non terminal DECLARA, REQUIRE, EXPRESIONES, EXPRESION, ASIGNACION;
 
 precedence right Incremento;
 precedence right Not;
-precedence left Suma, Resta;
 precedence left Matematico;
+precedence left Suma, Resta;
+precedence left Logico;
+precedence right Relacionales;
 
 start with INIS;
 //------------------------------------ PRODUCIONES --------------------------------------------------
@@ -41,16 +43,9 @@ INIS::= INI INIS
 
 INI ::= 
     Clase Identificador LlaveA LlaveC   
-    | Clase Identificador LlaveA METODOS LlaveC
+    | Clase Identificador LlaveA SENTENCIAS LlaveC
 ;
 
-METODOS::= METODO METODOS
-    | METODO;
-
-METODO::= Identificador ParenA ParenC LlaveA LlaveC
-    | Identificador ParenA ParenC LlaveA SENTENCIAS LlaveC
-    | DECLARA
-;
 
 SENTENCIAS::= SENTENCIA SENTENCIAS
     | SENTENCIA;
@@ -60,6 +55,7 @@ SENTENCIA::=
     | If PARENTESIS LlaveA INSTRUCCIONES LlaveC  ELSE
     | While PARENTESIS LlaveA INSTRUCCIONES LlaveC 
     | Do LlaveA INSTRUCCIONES LlaveC  While PARENTESIS PComa
+    | Identificador ParenA ParenC LlaveA INSTRUCCIONES LlaveC
     | Switch PARENTESIS LlaveA CASES LlaveC
     | Console Punto Log PARENTESIS FINEXPRE
     | Llamada ParenA ParenC FINEXPRE   
