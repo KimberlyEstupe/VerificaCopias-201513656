@@ -24,7 +24,7 @@ terminal Clase, Do, While, If, Else, Llamada, For, Console, Log,
 
 //------------------------------------ NO TERMINALES -------------------------------------------------- 
 /*Son creadas para cup*/
-non terminal INIS, INI, SENTENCIA, SENTENCIAS, INSTRUCCIONES, INSTRUC, PARENTESIS;
+non terminal INIS, INI, SENTENCIA, SENTENCIAS, INSTRUCCIONES, INSTRUC, PARENTESIS, METODO, METODOS;
 non terminal ELSE, CASE, CASES, FINEXPRE;
 non terminal DECLARA, REQUIRE, EXPRESIONES, EXPRESION, ASIGNACION;
 
@@ -40,8 +40,16 @@ INIS::= INI INIS
 | INI;
 
 INI ::= 
-    Clase Identificador LlaveA LlaveC
-    | Clase Identificador LlaveA SENTENCIAS LlaveC
+    Clase Identificador LlaveA LlaveC   
+    | Clase Identificador LlaveA METODOS LlaveC
+;
+
+METODOS::= METODO METODOS
+    | METODO;
+
+METODO::= Identificador ParenA ParenC LlaveA LlaveC
+    | Identificador ParenA ParenC LlaveA SENTENCIAS LlaveC
+    | DECLARA
 ;
 
 SENTENCIAS::= SENTENCIA SENTENCIAS
@@ -67,10 +75,11 @@ INSTRUCCIONES ::= SENTENCIAS
 
 DECLARA::= 
     Variable Identificador FINEXPRE 
-|   Variable ASIGNACION ;
+    | Variable Identificador Igual  EXPRESIONES FINEXPRE
+    | Identificador Igual  EXPRESIONES FINEXPRE
+    ;
 
 
-ASIGNACION::= Identificador Igual  EXPRESIONES FINEXPRE;
 
  EXPRESIONES::= 
     EXPRESIONES Suma EXPRESIONES
