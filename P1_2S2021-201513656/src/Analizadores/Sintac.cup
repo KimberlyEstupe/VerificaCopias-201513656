@@ -46,7 +46,6 @@ INI ::=
     | Clase Identificador LlaveA SENTENCIAS LlaveC
 ;
 
-
 SENTENCIAS::= SENTENCIA SENTENCIAS
     | SENTENCIA;
 
@@ -55,7 +54,7 @@ SENTENCIA::=
     | If PARENTESIS LlaveA INSTRUCCIONES LlaveC  ELSE
     | While PARENTESIS LlaveA INSTRUCCIONES LlaveC 
     | Do LlaveA INSTRUCCIONES LlaveC  While PARENTESIS PComa
-    | Identificador ParenA ParenC LlaveA INSTRUCCIONES LlaveC
+    | Identificador PARENTESIS LlaveA INSTRUCCIONES LlaveC
     | Switch PARENTESIS LlaveA CASES LlaveC
     | Console Punto Log PARENTESIS FINEXPRE
     | Llamada ParenA ParenC FINEXPRE   
@@ -76,7 +75,6 @@ DECLARA::=
     ;
 
 
-
  EXPRESIONES::= 
     EXPRESIONES Suma EXPRESIONES
     | EXPRESIONES Resta EXPRESIONES
@@ -86,6 +84,7 @@ DECLARA::=
     | ParenA EXPRESIONES ParenC
     /*-- terminales --*/
     | Numero  
+    | Identificador
     | Cadena 
     | Char 
     | Bool 

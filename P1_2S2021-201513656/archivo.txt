@@ -1,1 +1,23 @@
-varaib=5;
+class draws {
+    //Esta clase es un ejemplo de un archivo de entrada
+    tringle_size = 3;
+    square_size = 8;
+
+    set_size(tam) {
+        tringle_size = tam;
+    }
+
+    draw_triangle() {
+        let triangle_draw = "";
+        for () {
+            var draw_triangle_j = 0;
+            for () {
+                triangle_draw = triangle_draw + "*"
+            }
+            triangle_draw = triangle_draw + "\n"
+        }
+        console.log();
+    }
+    
+    
+}
