@@ -1,1 +1,11 @@
-(v==(5+3))&&(-23+33)*-(25/8)
+class fori{
+metodo(){
+for(let var1 = 7; car<3; car++){}
+for( var1 = 7; car<3; car++){}
+for(let var1; car<3; car=car+2){}
+for(let var1 = 7; car<3; car++){}
+
+}
+
+}
+

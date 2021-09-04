@@ -54,7 +54,7 @@ espacio=[ |\t|\r]+
 
 ("&&" | "||")                                   {return new Symbol(sym.Logico, yycolumn, yyline, yytext());}
 ("!")                                           {return new Symbol(sym.Not, yycolumn, yyline, yytext());}
-("**" | "/" | "%" "*")                              {return new Symbol(sym.Matematico, yycolumn, yyline, yytext());}
+("**" | "/" | "%" | "*")                              {return new Symbol(sym.Matematico, yycolumn, yyline, yytext());}
 ("+")                                           {return new Symbol(sym.Suma, yycolumn, yyline, yytext());}
 ("-")                                           {return new Symbol(sym.Resta, yycolumn, yyline, yytext());}
 ("=")                                           {return new Symbol(sym.Igual, yycolumn, yyline, yytext());}

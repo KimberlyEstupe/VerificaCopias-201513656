@@ -27,7 +27,7 @@ terminal Clase, Do, While, If, Else, Llamada, For, Console, Log,
 non terminal INIS, INI, SENTENCIA, SENTENCIAS, INSTRUCCIONES, INSTRUC, PARENTESIS, METODO, METODOS;
 non terminal ELSE, CASE, CASES, FINEXPRE, TIPOD, FOR, DECLARAFOR;
 non terminal DECLARA, EXPRESIONES, EXPRESION, PARAMETRO,PARAMETROS;
-non terminal PARENMETODOS, CASBREAK;
+non terminal PARENMETODOS, CASBREAK, ULTIDE;
 
 
 precedence right Incremento;
@@ -37,7 +37,7 @@ precedence left Suma, Resta;
 precedence left Logico;
 precedence right Relacionales;
 
-start with EXPRESIONES;
+start with INIS;
 //------------------------------------ PRODUCIONES --------------------------------------------------
 INIS::= INI INIS
 | INI;
@@ -64,7 +64,7 @@ PARAMETRO::= Coma Identificador
     | Identificador 
    ;
 
-SENTENCIAS::= SENTENCIA SENTENCIAS
+SENTENCIAS::= SENTENCIA SENTENCIAS //Hace que vengan varias 
     | SENTENCIA;
 
 SENTENCIA::=
@@ -78,16 +78,6 @@ SENTENCIA::=
     | DECLARA
     | Identificador Incremento FINEXPRE
 ;
-
-FOR::= For ParenA ParenC LlaveA INSTRUCCIONES LlaveC 
-    | For ParenA DECLARAFOR PComa EXPRESIONES PComa EXPRESIONES FINEXPRE ParenC LlaveA INSTRUCCIONES LlaveC
-    | For ParenA DECLARAFOR PComa EXPRESIONES PComa Identificador Incremento FINEXPRE ParenC LlaveA INSTRUCCIONES LlaveC ;
-
-DECLARAFOR::= 
-    Variable Identificador  
-    | Variable Identificador Igual  TIPOD 
-    | Identificador Igual  TIPOD 
-    ;
 
 INSTRUCCIONES ::= SENTENCIAS
     | Break FINEXPRE
@@ -122,6 +112,21 @@ TIPOD::= EXPRESIONES
      ;
 
 /************* Produciones de sentencias **************/
+FOR::= For ParenA ParenC LlaveA INSTRUCCIONES LlaveC 
+    | For ParenA DECLARAFOR PComa EXPRESIONES PComa ULTIDE ParenC LlaveA INSTRUCCIONES LlaveC;
+
+ULTIDE::= // Utilizada en el for
+      EXPRESIONES FINEXPRE
+    | Identificador Incremento FINEXPRE
+    | DECLARAFOR
+    |;
+
+DECLARAFOR::= // Utilizada en el for
+    Variable Identificador  
+    | Variable Identificador Igual  EXPRESIONES 
+    | Identificador Igual  EXPRESIONES 
+    ;
+
 CASES::=CASE CASES
     | CASE 
     | Default DPuntos INSTRUCCIONES CASBREAK
@@ -131,8 +136,6 @@ CASE::= Case Cadena DPuntos INSTRUCCIONES
     | Case Char DPuntos INSTRUCCIONES 
     | Case Numero DPuntos INSTRUCCIONES 
 ;
-
-
 
 ELSE ::= 
       Else If PARENTESIS LlaveA LlaveC ELSE
