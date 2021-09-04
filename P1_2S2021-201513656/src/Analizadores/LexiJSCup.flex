@@ -8,8 +8,8 @@ import java_cup.runtime.Symbol;
 %line
 %column
 L = [a-zA-Z_]+
-D = [0-9]+
-N = [0-9]+("."[0-9]+)?
+D = [0-9]+ //Enteros
+N = [0-9]+("."[0-9]+)? //Caulquier numero, decimal o entero
 ID =({L}|("_"{L}))({L}|{D}|"_")*
 C = \"[^\"]*\" /*cadena*/
 COMM = [\/][\*]((.)|"\n")*[\*][\/]
@@ -54,7 +54,7 @@ espacio=[ |\t|\r]+
 
 ("&&" | "||")                                   {return new Symbol(sym.Logico, yycolumn, yyline, yytext());}
 ("!")                                           {return new Symbol(sym.Not, yycolumn, yyline, yytext());}
-("**" | "/" | "%")                              {return new Symbol(sym.Matematico, yycolumn, yyline, yytext());}
+("**" | "/" | "%" "*")                              {return new Symbol(sym.Matematico, yycolumn, yyline, yytext());}
 ("+")                                           {return new Symbol(sym.Suma, yycolumn, yyline, yytext());}
 ("-")                                           {return new Symbol(sym.Resta, yycolumn, yyline, yytext());}
 ("=")                                           {return new Symbol(sym.Igual, yycolumn, yyline, yytext());}

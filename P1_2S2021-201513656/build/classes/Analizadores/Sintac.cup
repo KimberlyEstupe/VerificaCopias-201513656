@@ -25,8 +25,9 @@ terminal Clase, Do, While, If, Else, Llamada, For, Console, Log,
 //------------------------------------ NO TERMINALES -------------------------------------------------- 
 /*Son creadas para cup*/
 non terminal INIS, INI, SENTENCIA, SENTENCIAS, INSTRUCCIONES, INSTRUC, PARENTESIS, METODO, METODOS;
-non terminal ELSE, CASE, CASES, FINEXPRE;
-non terminal DECLARA, REQUIRE, EXPRESIONES, EXPRESION, ASIGNACION;
+non terminal ELSE, CASE, CASES, FINEXPRE, TIPOD, FOR, DECLARAFOR;
+non terminal DECLARA, EXPRESIONES, EXPRESION, PARAMETRO,PARAMETROS;
+non terminal PARENMETODOS, CASBREAK;
 
 
 precedence right Incremento;
@@ -36,50 +37,80 @@ precedence left Suma, Resta;
 precedence left Logico;
 precedence right Relacionales;
 
-start with INIS;
+start with EXPRESIONES;
 //------------------------------------ PRODUCIONES --------------------------------------------------
 INIS::= INI INIS
 | INI;
 
 INI ::= 
     Clase Identificador LlaveA LlaveC   
-    | Clase Identificador LlaveA SENTENCIAS LlaveC
+    | Clase Identificador LlaveA METODOS LlaveC
 ;
+
+METODOS::= METODO METODOS
+    | METODO;
+
+METODO::= Identificador PARENMETODOS LlaveA SENTENCIAS LlaveC
+    | Identificador PARENMETODOS LlaveA  LlaveC
+    | DECLARA;
+
+PARENMETODOS::= ParenA ParenC
+    | ParenA PARAMETROS ParenC;
+
+PARAMETROS::= PARAMETRO PARAMETROS
+    |PARAMETRO;
+
+PARAMETRO::= Coma Identificador
+    | Identificador 
+   ;
 
 SENTENCIAS::= SENTENCIA SENTENCIAS
     | SENTENCIA;
 
 SENTENCIA::=
-      For PARENTESIS LlaveA INSTRUCCIONES LlaveC 
+      FOR
     | If PARENTESIS LlaveA INSTRUCCIONES LlaveC  ELSE
     | While PARENTESIS LlaveA INSTRUCCIONES LlaveC 
     | Do LlaveA INSTRUCCIONES LlaveC  While PARENTESIS PComa
-    | Identificador PARENTESIS LlaveA INSTRUCCIONES LlaveC
     | Switch PARENTESIS LlaveA CASES LlaveC
-    | Console Punto Log PARENTESIS FINEXPRE
-    | Llamada ParenA ParenC FINEXPRE   
+    | Console Punto Log PARENTESIS FINEXPRE                 
+    | Identificador PARENMETODOS FINEXPRE                            //Llamada a parametros  
     | DECLARA
     | Identificador Incremento FINEXPRE
-    | ASIGNACION
 ;
+
+FOR::= For ParenA ParenC LlaveA INSTRUCCIONES LlaveC 
+    | For ParenA DECLARAFOR PComa EXPRESIONES PComa EXPRESIONES FINEXPRE ParenC LlaveA INSTRUCCIONES LlaveC
+    | For ParenA DECLARAFOR PComa EXPRESIONES PComa Identificador Incremento FINEXPRE ParenC LlaveA INSTRUCCIONES LlaveC ;
+
+DECLARAFOR::= 
+    Variable Identificador  
+    | Variable Identificador Igual  TIPOD 
+    | Identificador Igual  TIPOD 
+    ;
 
 INSTRUCCIONES ::= SENTENCIAS
     | Break FINEXPRE
     | ;
 
-
 DECLARA::= 
-    Variable Identificador FINEXPRE 
-    | Variable Identificador Igual  EXPRESIONES FINEXPRE
-    | Identificador Igual  EXPRESIONES FINEXPRE
+      Variable Identificador FINEXPRE 
+    | Variable Identificador Igual  TIPOD FINEXPRE
+    | Identificador Igual  TIPOD FINEXPRE
     ;
 
+TIPOD::= EXPRESIONES
+    | Require PARENTESIS; 
 
  EXPRESIONES::= 
-    EXPRESIONES Suma EXPRESIONES
+    EXPRESIONES Logico EXPRESIONES
+    | EXPRESIONES Relacionales EXPRESIONES
+    | EXPRESIONES Suma EXPRESIONES
     | EXPRESIONES Resta EXPRESIONES
     | EXPRESIONES Matematico EXPRESIONES
+    | Matematico EXPRESIONES
     | Resta EXPRESIONES
+    | Suma EXPRESIONES
     | Not EXPRESIONES
     | ParenA EXPRESIONES ParenC
     /*-- terminales --*/
@@ -93,21 +124,22 @@ DECLARA::=
 /************* Produciones de sentencias **************/
 CASES::=CASE CASES
     | CASE 
-    | Default DPuntos
+    | Default DPuntos INSTRUCCIONES CASBREAK
 ;
 
-CASE::= Case Cadena DPuntos
-    | Case Char DPuntos
-    | Case Numero DPuntos
+CASE::= Case Cadena DPuntos INSTRUCCIONES 
+    | Case Char DPuntos INSTRUCCIONES 
+    | Case Numero DPuntos INSTRUCCIONES 
 ;
+
+
 
 ELSE ::= 
-      Else If ParenA ParenC LlaveA LlaveC ELSE
+      Else If PARENTESIS LlaveA LlaveC ELSE
     | Else LlaveA LlaveC
     |   
 ;
 
-REQUIRE::= Require PARENTESIS ;
 
 /*********** PRODUCIONES REPETITIVAS************/
 PARENTESIS::= ParenA ParenC
