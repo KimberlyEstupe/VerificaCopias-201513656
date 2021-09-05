@@ -14,6 +14,7 @@ parser code
 
         System.out.println(encontrado);
         FVentanaP.AddES(encontrado, "Sintactico", "archivo",linea,columna);
+        FVentanaP.ErrorJF(encontrado, "Sintactico", "archivo",linea,columna);
     }
 
     public Symbol getS(){

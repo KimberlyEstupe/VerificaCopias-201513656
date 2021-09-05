@@ -53,8 +53,8 @@ public class FVentanaP extends javax.swing.JFrame {
     }
     
     public static void ErrorJF(String lexema, String tipo,String archivo, int linea, int columna) {
-        TErrores er = new TErrores(lexema, tipo, archivo, linea, columna);
-        ErrorM.add(er);
+        TErrores err = new TErrores(lexema, tipo, archivo, linea, columna);
+        ErrorM.add(err);
     }
      
      void addError(String lexema, String tipo,String archivo, int linea, int columna){
@@ -361,12 +361,13 @@ public class FVentanaP extends javax.swing.JFrame {
            jtSalida.setText(RespuestaAS);
            
         } catch (Exception ex) {
-            Symbol sym = AS.getS();//viene del sintax.cup es un metodo para obtener el simbolo
             for (int i = 0; i < ErrorM.size(); i++) {
             RespuestaAS += "\n Error de sintaxis. "+  " Linea: " + ErrorM.get(i).getLinea() + ", Columna: " + ErrorM.get(i).getCol() +", Texto: " + ErrorM.get(i).getLex()  ;
             }
-            
-            RespuestaAS +="\nFIN ANALISIS SINTACTICO";
+            for(int i = 0; i < ErrorM.size(); i++) {
+                ErrorM.remove(0);
+            }
+            RespuestaAS +="\n FIN ANALISIS SINTACTICO";
             jtSalida.setText(RespuestaAS);
         }
     }
