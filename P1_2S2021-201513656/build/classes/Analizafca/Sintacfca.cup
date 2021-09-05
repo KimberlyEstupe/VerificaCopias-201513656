@@ -1,0 +1,46 @@
+package Analizafca;
+import Analizadores.*;
+import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+import java.util.List;
+
+parser code
+{:
+    private Symbol s;
+    public void syntax_error(Symbol s){
+        this.s = s;
+        int linea = s.right+1;
+        int columna = s.left;
+        String encontrado = s.value.toString();
+
+        System.out.println(encontrado);
+        FVentanaP.AddES(encontrado, "Sintactico", "archivo",linea,columna);//Lista de Reporte
+    }
+
+    public Symbol getS(){
+        return this.s;
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {
+        System.out.println("MODO PANICO");
+
+        int linea = s.right;
+        int columna = s.left;
+        String encontrado = s.value.toString();
+        FVentanaP.AddES(encontrado, "Sintactico Panico", "archivo",linea,columna);
+    }
+:};
+
+//------------------------------------ TERMINALES -------------------------------------------------- 
+/*viene del Lex*/
+terminal Globales, GBarras, GLineas, GPie, Compare, String, Double, EjeX, Titulo, Valores, 
+    TituloX, TituloY, Archivo, 
+    ParenA, ParenC, LlaveA, LlaveC, CorcheA, CorcheC, 
+    Cadena, Numero, Identificador, Ruta; 
+
+//------------------------------------ NO TERMINALES -------------------------------------------------- 
+/*Son creadas para cup*/
+non terminal INICIO;
+
+INICIO::= Globales ParenA ParenC;

@@ -1,5 +1,6 @@
 package Analizadores;
 import Archivos.*;
+import Analizafca.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,12 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import JFlex.SilentExit;
-import java.awt.Color;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.List;
-import java_cup.runtime.Symbol;
+
 
 /**
  *
@@ -390,6 +388,24 @@ public class FVentanaP extends javax.swing.JFrame {
             jtSalida.setText(RespuestaAS);
     }
     
+    public void AnSintacFCA(){        
+        String ST = jtEntrada.getText();   
+        String RespuestaAS = jtSalida.getText()+"\n \nINICIO ANALISIS SINTACTICO";
+        
+        Analisisfca.AnalisisFC(ST);
+        
+        for (int i = 0; i < ErrorM.size(); i++) {
+                RespuestaAS += "\n Error de sintaxis. "+  " Linea: " + ErrorM.get(i).getLinea() + ", Columna: " + ErrorM.get(i).getCol() +", Error: " + ErrorM.get(i).getLex();
+                rErrores.add(ErrorM.get(i));
+                rErrores.get(i).setArchivo(NameArchivo);
+        }
+            ErrorM.clear();            
+            RespuestaAS +="\n FIN ANALISIS SINTACTICO";
+            jtSalida.setText(RespuestaAS);
+    }
+    
+    
+    
     public void AnalisisLexicoFCA(){
         try {
             // TODO add your handling code here:
@@ -492,8 +508,6 @@ public class FVentanaP extends javax.swing.JFrame {
                     + "		</tr>\n";
         }
         
-        
-        
         Reporte("Reporte de Tokens",texto,"ReporteTokens.html");
     }//GEN-LAST:event_ReporteTokensActionPerformed
 
@@ -510,7 +524,7 @@ public class FVentanaP extends javax.swing.JFrame {
                     + "		</tr>\n";
         }
                 
-        Reporte("Reporte de Erores",texto,"ReporteErrores.html");
+        Reporte("Reporte de Errores",texto,"ReporteErrores.html");
     }//GEN-LAST:event_ReporteErroresActionPerformed
 
     private void AbrirFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirFCAActionPerformed
@@ -545,6 +559,7 @@ public class FVentanaP extends javax.swing.JFrame {
     private void AnalisisFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalisisFCAActionPerformed
         // TODO add your handling code here:
         AnalisisLexicoFCA();
+        AnSintacFCA();
     }//GEN-LAST:event_AnalisisFCAActionPerformed
 
         
