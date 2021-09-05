@@ -14,7 +14,6 @@ parser code
 
         System.out.println(encontrado);
         FVentanaP.AddES(encontrado, "Sintactico", "archivo",linea,columna);//Lista de Reporte
-       
     }
 
     public Symbol getS(){
@@ -42,7 +41,7 @@ terminal Clase, Do, While, If, Else, Llamada, For, Console, Log,
 
 //------------------------------------ NO TERMINALES -------------------------------------------------- 
 /*Son creadas para cup*/
-non terminal INIS, INI, SENTENCIA, SENTENCIAS, INSTRUCCIONES, INSTRUC, PARENTESIS, METODO, METODOS;
+non terminal INIS, INI, SENTENCIA, SENTENCIAS, INSTRUCCIONES, INSTRUCCION, PARENTESIS, METODO, METODOS;
 non terminal ELSE, CASE, CASES, FINEXPRE, TIPOD, FOR, DECLARAFOR;
 non terminal DECLARA, EXPRESIONES, EXPRESION, PARAMETRO,PARAMETROS, SUMAS;
 non terminal PARENMETODOS, CASBREAK, ULTIDE, TIPOMETODOS, CICLOSLLAVES, TERMINALESS,LLAMADA, P_LLAMADA;
@@ -115,9 +114,13 @@ CICLOSLLAVES::=
     | Switch PARENTESIS LlaveA CASES LlaveC
     | error LlaveC;
 
-INSTRUCCIONES ::= SENTENCIAS
+INSTRUCCIONES ::= INSTRUCCION INSTRUCCIONES 
+    | INSTRUCCION
     | Break FINEXPRE
-    | ;
+     ;
+
+INSTRUCCION::= SENTENCIA 
+     ;
 
 DECLARA::= 
       Variable Identificador FINEXPRE 

@@ -365,17 +365,15 @@ public class FVentanaP extends javax.swing.JFrame {
                 
         try {
            AS.parse();
-           RespuestaAS +="\nFIN ANALISIS SINTACTICO";
-           jtSalida.setText(RespuestaAS);
-           
         } catch (Exception ex) {
-            for (int i = 0; i < ErrorM.size(); i++) {
+            System.out.println("ERROR:"+ ex);
+        }
+        for (int i = 0; i < ErrorM.size(); i++) {
                 RespuestaAS += "\n Error de sintaxis. "+  " Linea: " + ErrorM.get(i).getLinea() + ", Columna: " + ErrorM.get(i).getCol() +", Error: " + ErrorM.get(i).getLex();
-            }
+        }
             ErrorM.clear();            
             RespuestaAS +="\n FIN ANALISIS SINTACTICO";
             jtSalida.setText(RespuestaAS);
-        }
     }
     private void JMIAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIAbrirActionPerformed
         JFileChooser Narchivo = new JFileChooser(); //crea JFileChooser (visualizacion de fichero)      
