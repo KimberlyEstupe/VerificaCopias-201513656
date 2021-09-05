@@ -30,7 +30,8 @@ public class FVentanaP extends javax.swing.JFrame {
     boolean abierto = false;
      ArrayList<TErrores> rErrores= new ArrayList<>();
      ArrayList<RTokens> rTokens= new ArrayList<>();
-
+    public static ArrayList<TErrores> ErroresS= new ArrayList<>();
+    public static ArrayList<TErrores> ErrorM= new ArrayList<>();
     /**
      * Creates new form FVentanaP
      */
@@ -44,6 +45,17 @@ public class FVentanaP extends javax.swing.JFrame {
         RTokens token = new RTokens(lexema, tipo, archivo, linea, columna);
         rTokens.add(token);
      }  
+     
+          
+    public static void AddES(String lexema, String tipo,String archivo, int linea, int columna) {
+        TErrores er = new TErrores(lexema, tipo, archivo, linea, columna);
+        ErroresS.add(er);
+    }
+    
+    public static void ErrorJF(String lexema, String tipo,String archivo, int linea, int columna) {
+        TErrores er = new TErrores(lexema, tipo, archivo, linea, columna);
+        ErrorM.add(er);
+    }
      
      void addError(String lexema, String tipo,String archivo, int linea, int columna){
          TErrores error = new TErrores(lexema, tipo, archivo, linea, columna);
@@ -124,15 +136,15 @@ public class FVentanaP extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1))
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 255, 204));
@@ -160,8 +172,8 @@ public class FVentanaP extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -264,9 +276,7 @@ public class FVentanaP extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -337,10 +347,13 @@ public class FVentanaP extends javax.swing.JFrame {
         }
     }
     
-    public void AnSintac(){
+    public void AnSintac(){        
         String ST = jtEntrada.getText();
         Sintac AS = new Sintac(new Analizadores.LexiJSCup(new StringReader(ST)));
         String RespuestaAS = jtSalida.getText()+"\n \nINICIO ANALISIS SINTACTICO";
+        
+         
+        
         try {
            AS.parse();
            RespuestaAS +="\nFIN ANALISIS SINTACTICO";
@@ -349,8 +362,10 @@ public class FVentanaP extends javax.swing.JFrame {
            
         } catch (Exception ex) {
             Symbol sym = AS.getS();//viene del sintax.cup es un metodo para obtener el simbolo
-            addError(sym.value.toString(), "Error Sintactico", NameArchivo, sym.right + 1, sym.left + 1);
-            RespuestaAS += "\n Error de sintaxis. Linea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"" ;
+            for (int i = 0; i < ErrorM.size(); i++) {
+            RespuestaAS += "\n Error de sintaxis. "+  " Linea: " + ErrorM.get(i).getLinea() + ", Columna: " + ErrorM.get(i).getCol() +", Texto: " + ErrorM.get(i).getLex()  ;
+            }
+            
             RespuestaAS +="\nFIN ANALISIS SINTACTICO";
             jtSalida.setText(RespuestaAS);
         }
@@ -372,6 +387,7 @@ public class FVentanaP extends javax.swing.JFrame {
                         val=FR.read();
                     }
                     jtEntrada.setText("");
+                    jtSalida.setText("");
                     jtEntrada.setText(textoF);
                 }catch(IOException e){   
                     e.printStackTrace();
@@ -409,6 +425,9 @@ public class FVentanaP extends javax.swing.JFrame {
                     + "			<td>" + rTokens.get(i).getArchivo()+ " </td>\n"
                     + "		</tr>\n";
         }
+        
+        
+        
         Reporte("Reporte de Tokens",texto,"ReporteTokens.html");
     }//GEN-LAST:event_ReporteTokensActionPerformed
 
@@ -424,6 +443,18 @@ public class FVentanaP extends javax.swing.JFrame {
                     + "			<td> " + rErrores.get(i).getArc() + " </td>\n"
                     + "		</tr>\n";
         }
+        
+        for (int i = 0; i < ErroresS.size(); i++) {
+            texto += "		<tr style=\"color:#E8DAEF\">\n"
+                    + "			<td> " + (i + 1) + "</th>\n"
+                    + "			<td> " + ErroresS.get(i).getLex() + " </td>\n"
+                    + "			<td> " + ErroresS.get(i).getTipo() + " </td>\n"
+                    + "			<td> " + ErroresS.get(i).getLinea() + " </td>\n"
+                    + "			<td> " + ErroresS.get(i).getCol() + " </td>\n"
+                    + "			<td> " + ErroresS.get(i).getArc() + " </td>\n"
+                    + "		</tr>\n";
+        }
+        
         Reporte("Reporte de Erores",texto,"ReporteErrores.html");
     }//GEN-LAST:event_ReporteErroresActionPerformed
 

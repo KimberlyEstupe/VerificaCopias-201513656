@@ -1,16 +1,34 @@
 package Analizadores;
 import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+import java.util.List;
 
 parser code
 {:
     private Symbol s;
     public void syntax_error(Symbol s){
         this.s = s;
-        System.out.println(s.value.toString());
+        int linea = s.right;
+        int columna = s.left;
+        String encontrado = s.value.toString();
+
+        System.out.println(encontrado);
+        FVentanaP.AddES(encontrado, "Sintactico", "archivo",linea,columna);
     }
 
     public Symbol getS(){
         return this.s;
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {
+        System.out.println("MODO PANICO");
+
+        int linea = s.right;
+        int columna = s.left;
+        String encontrado = s.value.toString();
+        FVentanaP.AddES(encontrado, "Sintactico", "archivo",linea,columna);
+        FVentanaP.ErrorJF(encontrado, "Sintactico", "archivo",linea,columna);
     }
 :};
 
@@ -27,7 +45,7 @@ terminal Clase, Do, While, If, Else, Llamada, For, Console, Log,
 non terminal INIS, INI, SENTENCIA, SENTENCIAS, INSTRUCCIONES, INSTRUC, PARENTESIS, METODO, METODOS;
 non terminal ELSE, CASE, CASES, FINEXPRE, TIPOD, FOR, DECLARAFOR;
 non terminal DECLARA, EXPRESIONES, EXPRESION, PARAMETRO,PARAMETROS;
-non terminal PARENMETODOS, CASBREAK, ULTIDE;
+non terminal PARENMETODOS, CASBREAK, ULTIDE, TIPOMETODOS, CICLOSLLAVES, TERMINALESS,LLAMADA, P_LLAMADA, P_LLAMADAS;
 
 
 precedence right Incremento;
@@ -45,14 +63,19 @@ INIS::= INI INIS
 INI ::= 
     Clase Identificador LlaveA LlaveC   
     | Clase Identificador LlaveA METODOS LlaveC
+    | error LlaveC
 ;
 
 METODOS::= METODO METODOS
     | METODO;
 
-METODO::= Identificador PARENMETODOS LlaveA SENTENCIAS LlaveC
-    | Identificador PARENMETODOS LlaveA  LlaveC
+METODO::= TIPOMETODOS
     | DECLARA;
+    
+
+TIPOMETODOS::= Identificador PARENMETODOS LlaveA SENTENCIAS LlaveC
+    | Identificador PARENMETODOS LlaveA  LlaveC
+    | error LlaveC;
 
 PARENMETODOS::= ParenA ParenC
     | ParenA PARAMETROS ParenC;
@@ -68,16 +91,30 @@ SENTENCIAS::= SENTENCIA SENTENCIAS //Hace que vengan varias
     | SENTENCIA;
 
 SENTENCIA::=
-      FOR
-    | If PARENTESIS LlaveA INSTRUCCIONES LlaveC  ELSE
-    | While PARENTESIS LlaveA INSTRUCCIONES LlaveC 
+    CICLOSLLAVES
     | Do LlaveA INSTRUCCIONES LlaveC  While PARENTESIS PComa
-    | Switch PARENTESIS LlaveA CASES LlaveC
-    | Console Punto Log PARENTESIS FINEXPRE                 
-    | Identificador PARENMETODOS FINEXPRE                            //Llamada a parametros  
+    | Console Punto Log PARENTESIS FINEXPRE        
+    | LLAMADA                           //Llamada a parametros  
     | DECLARA
     | Identificador Incremento FINEXPRE
 ;
+
+LLAMADA::= Identificador ParenA ParenC FINEXPRE
+    | Identificador ParenA P_LLAMADAS ParenC FINEXPRE;
+
+P_LLAMADAS::= P_LLAMADA P_LLAMADAS
+    | P_LLAMADA;
+
+P_LLAMADA::= 
+    Coma EXPRESIONES 
+    | EXPRESIONES;
+
+CICLOSLLAVES::= 
+      FOR
+    | If PARENTESIS LlaveA INSTRUCCIONES LlaveC  ELSE
+    | While PARENTESIS LlaveA INSTRUCCIONES LlaveC 
+    | Switch PARENTESIS LlaveA CASES LlaveC
+    | error LlaveC;
 
 INSTRUCCIONES ::= SENTENCIAS
     | Break FINEXPRE
@@ -104,11 +141,7 @@ TIPOD::= EXPRESIONES
     | Not EXPRESIONES
     | ParenA EXPRESIONES ParenC
     /*-- terminales --*/
-    | Numero  
-    | Identificador
-    | Cadena 
-    | Char 
-    | Bool 
+    |TERMINALESS
      ;
 
 /************* Produciones de sentencias **************/
@@ -138,8 +171,8 @@ CASE::= Case Cadena DPuntos INSTRUCCIONES
 ;
 
 ELSE ::= 
-      Else If PARENTESIS LlaveA LlaveC ELSE
-    | Else LlaveA LlaveC
+      Else If PARENTESIS LlaveA INSTRUCCIONES LlaveC ELSE
+    | Else LlaveA INSTRUCCIONES LlaveC
     |   
 ;
 
@@ -149,3 +182,9 @@ PARENTESIS::= ParenA ParenC
     | ParenA EXPRESIONES ParenC;
 
 FINEXPRE::= PComa | ;
+
+TERMINALESS::=  Numero  
+    | Identificador
+    | Cadena 
+    | Char 
+    | Bool ;
