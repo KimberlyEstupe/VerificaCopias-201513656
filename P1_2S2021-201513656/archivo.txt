@@ -1,44 +1,43 @@
-class draws {
-    //Esta clase es un ejemplo de un archivo de entrada
-    tringle_size = 3;
-    square_size = 8;
+## este es un comentario de una línea
+#*
+Este es
+Un comentario
+Multilínea*# 
 
-    set_size(tam) {
-        tringle_size = tam;
-    }
 
-    draw_triangle() {
-        let triangle_draw = "";
-        for (let draw_triangle_i = tringle_size; draw_triangle_i >= 1; draw_triangle_i--) {
-            var draw_triangle_j = 0;
-            for (draw_triangle_j = 0; draw_triangle_j < draw_triangle_i; draw_triangle_j++) {
-                triangle_draw = triangle_draw + "*"
-            }
-            triangle_draw = triangle_draw + "\n"
-        }
-        console.log(triangle_draw);
-    }
-    /*
-    Si este comentario se repite
-    cuenta como parte de la repitencia
-    */
-    draw_sq() {
-        let sq_draw = "";
-        if (square_size >= 2 && square_size <= 50) {
-            for (let draw_square_i = 1; draw_square_i <= square_size; draw_square_i++) {
-                for (let draw_square_j = 1; draw_square_j <= square_size; draw_square_j++) {
-                    sq_draw = sq_draw + "*"; 
-break;
-                }
-                sq_draw = sq_draw + "\n"; break;
-            }
-            imprimir(sq_draw);
-        } else {
-            imprimir("Por favor ingrese un numero entre 2 y 50");
-        }
-    }
+DefinirGlobales
+{
+ string reporte1 = “Reporte 1”;
+ double pe1 = 0.8;
+ Compare(‘C:\OLC1\Proyectos\ProyectoA’, ‘C:\OLC1\Proyectos\ProyectoB’); 
 
-    imprimir(var1){
-        console.log(var1)
-    }
+ double pe2 = 0.5;
+ double pe3 = 0.2;
+ double po1 = ${ PuntajeEspecifico, “archivo1.js”, “clase”, “clase1”};
+ double po2 = ${ PuntajeEspecifico, “archivo1.js”, “clase”, “clase2”};
+ string vart = “Valor Obtenido”;
+ string var2 = “Valore Esperado clase 1”;
+ string var22 = “Valor Obtenido clase 1”;
+string var3 = “Valore Esperado clase 2”;
+ string var3 = “Valor Obtenido clase 2”;
 }
+
+## este es un comentario de una línea
+GraficaBarras{
+ Titulo: reporte1;
+Ejex: [ “Probabilidad Esperada clase 1”, “Probabilidad Obtenida Clase 1”, var2, var22, var3, var33];
+Valores: [ pe1, po1, pe2, po2, pe3, ${ PuntajeEspecifico, “archivo1.js”, “clase”, “clase3”} ];
+TituloX: “Atributo”;
+TituloY: “Puntaje”;
+}
+
+GraficaLineas{
+ Titulo: reporteResumen;
+ Archivo: “archivo 1”;
+}
+
+GraficaPie{
+ Titulo: reporte1;
+Ejex: [ “Probabilidad Esperada clase 1”, “Probabilidad Obtenida Clase 1”, var2, var22, var3, var33];
+Valores: [ pe1, po1, pe2, po2, pe3, ${ PuntajeEspecifico, “archivo1.js”, “clase”, “clase3”} ];
+} 

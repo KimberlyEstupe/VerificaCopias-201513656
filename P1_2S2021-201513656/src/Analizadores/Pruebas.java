@@ -22,13 +22,26 @@ import javax.swing.JOptionPane;
  */
 public class Pruebas {
     public static void main(String[] args) throws Exception {
-        String R1 = "src/Analizadores/LexiJS.flex";
-        String R2 = "src/Analizadores/LexiJSCup.flex";
+        String R1 = "src/Analizadores/";
         String[] RS = {"-parser", "Sintac","src/Analizadores/Sintac.cup"};
-        Analizar(R1, R2, RS);
+        
+        //AnalizarJS(R1+"LexiJS.flex", R1+"LexiJSCup.flex", RS);
+        AnalizadorFCA();
+    }
+    //*********************************** ANALIZADORES FCA ***************************************************************
+    
+    public static void AnalizadorFCA(){
+        String ruta= "src/Analizadores/";
+        try {
+            String opcFlex[] = {ruta+"Lexifca.flex", "-d", ruta};
+            JFlex.Main.generate(opcFlex);
+        } catch (SilentExit ex) {
+            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-     public static void Analizar(String R1,String R2,String[] RS) throws IOException, Exception{
+    //*********************************** ANALIZADORES JS ***************************************************************
+     public static void AnalizarJS(String R1,String R2,String[] RS) throws IOException, Exception{
         File archivo;
         archivo = new File(R1);
         JFlex.Main.generate(archivo);

@@ -21,6 +21,10 @@ public class TErrores {
         this.columna = columna;
     }
 
+    public void setArchivo(String archivo) {
+        this.archivo = archivo;
+    }
+
     public String getLex() {
         return lexema;
     }

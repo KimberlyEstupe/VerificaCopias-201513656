@@ -53,8 +53,8 @@ public enum Tokenjs {
     Cadena,
     Numero,
     Identificador,
-    COM_MULTILINEA,
-    COMENTARIO,
+    Comentario_Multilinea,
+    Comentario,
     Char,
     ERROR
     

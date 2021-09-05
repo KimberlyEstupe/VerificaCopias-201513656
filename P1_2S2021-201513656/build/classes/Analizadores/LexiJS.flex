@@ -32,8 +32,8 @@ espacio=[ \t\r]+
 {espacio} {/*Ignore*/}
 
 /* Comentarios */
-( [\/][\/](.)* ) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn;  return COMENTARIO;}
-{COMM} {Lexejs= yytext(); Lineajs =yyline; Colujs=yycolumn; return COM_MULTILINEA;}
+( [\/][\/](.)* ) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn;  return Comentario;}
+{COMM} {Lexejs= yytext(); Lineajs =yyline; Colujs=yycolumn; return Comentario_Multilinea;}
 
 (class) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Clase;}
 (do) {Lexejs=yytext(); Lineajs =yyline; Colujs=yycolumn; return Do;}

@@ -22,6 +22,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JMIAbrirActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="AbrirFCA">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Abrir FCA"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AbrirFCAActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="guardarComo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar Como"/>
@@ -29,11 +37,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guardarComoActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="AbrirFCA">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Abrir FCA"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -51,6 +54,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiEjecutarActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="AnalisisFCA">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Analizar FCA"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AnalisisFCAActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

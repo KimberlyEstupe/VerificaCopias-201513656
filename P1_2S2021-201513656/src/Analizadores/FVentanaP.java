@@ -30,7 +30,6 @@ public class FVentanaP extends javax.swing.JFrame {
     boolean abierto = false;
      ArrayList<TErrores> rErrores= new ArrayList<>();
      ArrayList<RTokens> rTokens= new ArrayList<>();
-    public static ArrayList<TErrores> ErroresS= new ArrayList<>();
     public static ArrayList<TErrores> ErrorM= new ArrayList<>();
     /**
      * Creates new form FVentanaP
@@ -49,7 +48,6 @@ public class FVentanaP extends javax.swing.JFrame {
           
     public static void AddES(String lexema, String tipo,String archivo, int linea, int columna) {
         TErrores er = new TErrores(lexema, tipo, archivo, linea, columna);
-        ErroresS.add(er);
         ErrorM.add(er);
     }
     
@@ -111,10 +109,11 @@ public class FVentanaP extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         JMIGuardar = new javax.swing.JMenu();
         JMIAbrir = new javax.swing.JMenuItem();
-        guardarComo = new javax.swing.JMenuItem();
         AbrirFCA = new javax.swing.JMenuItem();
+        guardarComo = new javax.swing.JMenuItem();
         jmEjecutar = new javax.swing.JMenu();
         jmiEjecutar = new javax.swing.JMenuItem();
+        AnalisisFCA = new javax.swing.JMenuItem();
         jmEliminarP = new javax.swing.JMenu();
         JMICrearP = new javax.swing.JMenuItem();
         EmininarPestaña = new javax.swing.JMenuItem();
@@ -217,6 +216,14 @@ public class FVentanaP extends javax.swing.JFrame {
         });
         JMIGuardar.add(JMIAbrir);
 
+        AbrirFCA.setText("Abrir FCA");
+        AbrirFCA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AbrirFCAActionPerformed(evt);
+            }
+        });
+        JMIGuardar.add(AbrirFCA);
+
         guardarComo.setText("Guardar Como");
         guardarComo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,9 +231,6 @@ public class FVentanaP extends javax.swing.JFrame {
             }
         });
         JMIGuardar.add(guardarComo);
-
-        AbrirFCA.setText("Abrir FCA");
-        JMIGuardar.add(AbrirFCA);
 
         jMenuBar1.add(JMIGuardar);
 
@@ -244,6 +248,14 @@ public class FVentanaP extends javax.swing.JFrame {
             }
         });
         jmEjecutar.add(jmiEjecutar);
+
+        AnalisisFCA.setText("Analizar FCA");
+        AnalisisFCA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnalisisFCAActionPerformed(evt);
+            }
+        });
+        jmEjecutar.add(AnalisisFCA);
 
         jMenuBar1.add(jmEjecutar);
 
@@ -370,11 +382,60 @@ public class FVentanaP extends javax.swing.JFrame {
         }
         for (int i = 0; i < ErrorM.size(); i++) {
                 RespuestaAS += "\n Error de sintaxis. "+  " Linea: " + ErrorM.get(i).getLinea() + ", Columna: " + ErrorM.get(i).getCol() +", Error: " + ErrorM.get(i).getLex();
+                rErrores.add(ErrorM.get(i));
+                rErrores.get(i).setArchivo(NameArchivo);
         }
             ErrorM.clear();            
             RespuestaAS +="\n FIN ANALISIS SINTACTICO";
             jtSalida.setText(RespuestaAS);
     }
+    
+    public void AnalisisLexicoFCA(){
+        try {
+            // TODO add your handling code here:
+            File archivo = new File ("archivo.txt");// Crea el archivo donde se guadara ka entrada
+            PrintWriter escribe; // Escribe en el archivo 
+            escribe = new PrintWriter(archivo);
+            escribe.print(jtEntrada.getText());
+            escribe.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FVentanaP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            Reader lector = new BufferedReader(new FileReader("archivo.txt"));
+            Lexifca lexfca = new Lexifca (lector);
+            String resultado="Inicio Analisis Lexico \n";
+            
+            while (true) {
+                Tokensfca tokfac = lexfca.yylex();
+                if(tokfac == null){
+                    resultado += "Fin Analisis Lexico";
+                    jtSalida.setText(resultado);
+                    return;
+                }
+                switch(tokfac) {
+                    case ERROR:
+                        resultado += "   Error Lexico: simbolo "+lexfca.Lexefca+" no reconocido\n";
+                        addError(lexfca.Lexefca, "Error lexico, simbolo no reconocido", NameArchivo, lexfca.Lineafca, lexfca.Colufca);
+                        break;                        
+                    case Definir_Globales: case Grafica_Barras: case Grafica_Lineas: case Grafica_Pie: case Compare:
+                    case Dato_String: case Dato_Double: case Eje_X: case Titulo: case Valores: case Titulo_X:
+                    case Titulo_Y: case Archivo :
+                        addToken(lexfca.Lexefca,"Reservada "+tokfac,NameArchivo,lexfca.Lineafca,lexfca.Colufca);
+                        break;
+                    default: 
+                        addToken(lexfca.Lexefca,tokfac+"",NameArchivo,lexfca.Lineafca,lexfca.Colufca);
+                        break;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FVentanaP.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FVentanaP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void JMIAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIAbrirActionPerformed
         JFileChooser Narchivo = new JFileChooser(); //crea JFileChooser (visualizacion de fichero)      
         int x = Narchivo.showOpenDialog(this);//escoje el fichero
@@ -398,7 +459,7 @@ public class FVentanaP extends javax.swing.JFrame {
                     e.printStackTrace();
                 }                
             }else{
-                JOptionPane.showMessageDialog(null, "ERROR \nEl archivo no es de extención 'fca' vuelve a intentar","WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "ERROR \nEl archivo no es de extención 'js' vuelve a intentar","WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
             }
             
         }
@@ -448,20 +509,43 @@ public class FVentanaP extends javax.swing.JFrame {
                     + "			<td> " + rErrores.get(i).getArc() + " </td>\n"
                     + "		</tr>\n";
         }
-        
-        for (int i = 0; i < ErroresS.size(); i++) {
-            texto += "		<tr style=\"color:#E8DAEF\">\n"
-                    + "			<td> " + (i + 1) + "</th>\n"
-                    + "			<td> " + ErroresS.get(i).getLex() + " </td>\n"
-                    + "			<td> " + ErroresS.get(i).getTipo() + " </td>\n"
-                    + "			<td> " + ErroresS.get(i).getLinea() + " </td>\n"
-                    + "			<td> " + ErroresS.get(i).getCol() + " </td>\n"
-                    + "			<td> " + ErroresS.get(i).getArc() + " </td>\n"
-                    + "		</tr>\n";
-        }
-        
+                
         Reporte("Reporte de Erores",texto,"ReporteErrores.html");
     }//GEN-LAST:event_ReporteErroresActionPerformed
+
+    private void AbrirFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirFCAActionPerformed
+        JFileChooser Narchivo = new JFileChooser(); //crea JFileChooser (visualizacion de fichero)      
+        int x = Narchivo.showOpenDialog(this);//escoje el fichero
+        if (x == JFileChooser.APPROVE_OPTION) {
+            File fichero = Narchivo.getSelectedFile();            
+            rutaFichero = fichero.getAbsolutePath();
+            NameArchivo = fichero.getName();
+            if (NameArchivo.endsWith("fca")) {// verifica extension                
+                abierto = true;
+                try(FileReader FR = new FileReader(fichero)){
+                    String textoF ="";
+                    int val = FR.read();               
+                    while(val!=-1){
+                        textoF+=(char)val;
+                        val=FR.read();
+                    }
+                    jtEntrada.setText("");
+                    jtSalida.setText("");
+                    jtEntrada.setText(textoF);
+                }catch(IOException e){   
+                    e.printStackTrace();
+                }                
+            }else{
+                JOptionPane.showMessageDialog(null, "ERROR \nEl archivo no es de extención 'fca' vuelve a intentar","WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+            }
+            
+        }
+    }//GEN-LAST:event_AbrirFCAActionPerformed
+
+    private void AnalisisFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalisisFCAActionPerformed
+        // TODO add your handling code here:
+        AnalisisLexicoFCA();
+    }//GEN-LAST:event_AnalisisFCAActionPerformed
 
         
     /**
@@ -501,6 +585,7 @@ public class FVentanaP extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AbrirFCA;
+    private javax.swing.JMenuItem AnalisisFCA;
     private javax.swing.JMenuItem EmininarPestaña;
     private javax.swing.JMenuItem JMIAbrir;
     private javax.swing.JMenuItem JMICrearP;

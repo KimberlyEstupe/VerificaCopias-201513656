@@ -1,5 +1,5 @@
-package AnalisisFCA;
-import static AnalisisFCA.Tokensfca.*;
+package Analizadores;
+import static Analizadores.Tokensfca.*;
 %%
 %class Lexifca
 %type Tokensfca
@@ -13,12 +13,15 @@ import static AnalisisFCA.Tokensfca.*;
 L = [a-zA-Z_]+
 D = [0-9]+
 N = [0-9]+("."[0-9]+)?
-C = \"[^\"]*\" /*cadena*/
+C1 = \"[^\"]*\" /*cadena*/
+C2 = [\“](.)*[\”]
 ID =({L}|("_"{L}))({L}|{D}|"_")*
-CHA = [\'](.)[\']
 espacio=[ \t\r\n]+
 COMMULTI = [\#][\*]((.)|"\n")*[\*][\#] //comentario multilinea
 COM = [\#][\#](.)* // Comentario uniline
+R1 = [\'](.)*[\']
+R2 = [\‘](.)*[\’]
+
 %{
     public String Lexefca;
     public int Lineafca;
@@ -30,7 +33,7 @@ COM = [\#][\#](.)* // Comentario uniline
 {espacio} {/*Ignore*/}
 
 /* Comentarios */
-{COMMULTI}  {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Comentario_ Multilinea;}
+{COMMULTI}  {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Comentario_Multilinea;}
 {COM}       {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Comentario;}
 
 
@@ -40,7 +43,7 @@ GraficaLineas   {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Gra
 GraficaPie      {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Grafica_Pie;}
 Compare         {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Compare;}
 string          {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Dato_String;}
-double          {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Dato:Double;}
+double          {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Dato_Double;}
 EjeX            {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Eje_X;}
 Titulo          {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Titulo;}
 Valores         {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Valores;}
@@ -56,15 +59,17 @@ Archivo         {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Arc
 "$"     {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Signo_Dolar;}
 
 
-"{" {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Llave_Abierta;}
-"}" {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Llave_Cerrada;}
-"[" {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Corchete_Abierto;}
-"]" {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Corchete_Cerrado;}
+"{" {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Llave_Apertura;}
+"}" {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Llave_Cierre;}
+"[" {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Corchete_Apertura;}
+"]" {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Corchete_Cierre;}
+"(" {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Parentesis_Apertura;}
+")" {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Parentesis_Cierre;}
 
-
-{C}     {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Cadena;}
-{ID}    {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Identificador;}
-{N}     {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Numero;}
-{CHA}   {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Char;}
+ 
+({C1} | {C2})   {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Cadena;}
+{ID}        {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Identificador;}
+{N}         {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Numero;}
+({R1} | {R2})   {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Ruta;}
 
 . {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return ERROR;}
