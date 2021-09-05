@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import java.io.StringReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -67,13 +69,17 @@ public class FVentanaP extends javax.swing.JFrame {
      
      public void Reporte(String Titulo, String relleno, String NameDoc){
          Archivo arc = new Archivo();
+         DateTimeFormatter fechar_hora = DateTimeFormatter.ofPattern("dd/MM/yyyy  HH:mm");
          String html = "<!DOCTYPE HTML5>\n"
                 + "<html>\n"
                 + " <head><center>\n"
                 + "   <meta charset=\"UTF-8\"/>\n"
-                + "   <h1 style=\"color:#EC7063\">"+Titulo+"</h1> \n"
+                + "   <h1 style=\"color:#EC7063\">"+Titulo+"</h1>\n"
                 + " </center></head>\n"
                 + " <body bgcolor=\"#061626\"><center>\n"
+                + "   <h2 style=\"color:#BF67EC\">Kimberly Julissa Estupe Chen</h2> \n"
+                + "   <h2 style=\"color:#BF67EC\">201513656</h2> \n"
+                 + "   <h2 style=\"color:#BF67EC\">Fecha y hora: "+fechar_hora.format(LocalDateTime.now())+"</h2> \n"
                 + "    <table align=\"center\" cellspacing=\"2\" cellpadding=\"2\" border=\"1\" > \n"      
                 + "	 <tr bgcolor=\"#FAE5D3\" align=\"center\">\n"
                 + "         <th> No. </th>\n"
@@ -88,6 +94,9 @@ public class FVentanaP extends javax.swing.JFrame {
                 + " </center></body>\n"
                 + "</html>";
          arc.Reportes(html,NameDoc );
+         
+         
+        System.out.println("dd/MM/yyyy HH:mm-> "+fechar_hora.format(LocalDateTime.now()));
      }
 
     
