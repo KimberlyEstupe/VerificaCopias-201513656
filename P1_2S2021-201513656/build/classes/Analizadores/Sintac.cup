@@ -13,8 +13,8 @@ parser code
         String encontrado = s.value.toString();
 
         System.out.println(encontrado);
-        FVentanaP.AddES(encontrado, "Sintactico", "archivo",linea,columna);
-        FVentanaP.ErrorJF(encontrado, "Sintactico", "archivo",linea,columna);
+        FVentanaP.AddES(encontrado, "Sintactico", "archivo",linea,columna);//Lista de Reporte
+       
     }
 
     public Symbol getS(){
@@ -28,8 +28,7 @@ parser code
         int linea = s.right;
         int columna = s.left;
         String encontrado = s.value.toString();
-        FVentanaP.AddES(encontrado, "Sintactico", "archivo",linea,columna);
-        FVentanaP.ErrorJF(encontrado, "Sintactico", "archivo",linea,columna);
+        FVentanaP.AddES(encontrado, "Sintactico Panico", "archivo",linea,columna);
     }
 :};
 
@@ -45,8 +44,8 @@ terminal Clase, Do, While, If, Else, Llamada, For, Console, Log,
 /*Son creadas para cup*/
 non terminal INIS, INI, SENTENCIA, SENTENCIAS, INSTRUCCIONES, INSTRUC, PARENTESIS, METODO, METODOS;
 non terminal ELSE, CASE, CASES, FINEXPRE, TIPOD, FOR, DECLARAFOR;
-non terminal DECLARA, EXPRESIONES, EXPRESION, PARAMETRO,PARAMETROS;
-non terminal PARENMETODOS, CASBREAK, ULTIDE, TIPOMETODOS, CICLOSLLAVES, TERMINALESS,LLAMADA, P_LLAMADA, P_LLAMADAS;
+non terminal DECLARA, EXPRESIONES, EXPRESION, PARAMETRO,PARAMETROS, SUMAS;
+non terminal PARENMETODOS, CASBREAK, ULTIDE, TIPOMETODOS, CICLOSLLAVES, TERMINALESS,LLAMADA, P_LLAMADA;
 
 
 precedence right Incremento;
@@ -73,7 +72,6 @@ METODOS::= METODO METODOS
 METODO::= TIPOMETODOS
     | DECLARA;
     
-
 TIPOMETODOS::= Identificador PARENMETODOS LlaveA SENTENCIAS LlaveC
     | Identificador PARENMETODOS LlaveA  LlaveC
     | error LlaveC;
@@ -101,14 +99,14 @@ SENTENCIA::=
 ;
 
 LLAMADA::= Identificador ParenA ParenC FINEXPRE
-    | Identificador ParenA P_LLAMADAS ParenC FINEXPRE;
-
-P_LLAMADAS::= P_LLAMADA P_LLAMADAS
-    | P_LLAMADA;
+    | Identificador ParenA P_LLAMADA ParenC FINEXPRE;
 
 P_LLAMADA::= 
-    Coma EXPRESIONES 
-    | EXPRESIONES;
+    Coma SUMAS P_LLAMADA
+    | SUMAS;
+
+SUMAS::= TERMINALESS
+    | TERMINALESS Suma TERMINALESS;
 
 CICLOSLLAVES::= 
       FOR
@@ -150,14 +148,12 @@ FOR::= For ParenA ParenC LlaveA INSTRUCCIONES LlaveC
     | For ParenA DECLARAFOR PComa EXPRESIONES PComa ULTIDE ParenC LlaveA INSTRUCCIONES LlaveC;
 
 ULTIDE::= // Utilizada en el for
-      EXPRESIONES FINEXPRE
-    | Identificador Incremento FINEXPRE
-    | DECLARAFOR
-    |;
+      EXPRESIONES 
+    | Identificador Incremento 
+    | ;
 
 DECLARAFOR::= // Utilizada en el for
-    Variable Identificador  
-    | Variable Identificador Igual  EXPRESIONES 
+    Variable Identificador Igual  EXPRESIONES 
     | Identificador Igual  EXPRESIONES 
     ;
 

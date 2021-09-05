@@ -50,16 +50,23 @@ public class FVentanaP extends javax.swing.JFrame {
     public static void AddES(String lexema, String tipo,String archivo, int linea, int columna) {
         TErrores er = new TErrores(lexema, tipo, archivo, linea, columna);
         ErroresS.add(er);
+        ErrorM.add(er);
     }
     
-    public static void ErrorJF(String lexema, String tipo,String archivo, int linea, int columna) {
-        TErrores err = new TErrores(lexema, tipo, archivo, linea, columna);
-        ErrorM.add(err);
-    }
      
      void addError(String lexema, String tipo,String archivo, int linea, int columna){
          TErrores error = new TErrores(lexema, tipo, archivo, linea, columna);
          rErrores.add(error);
+     }
+     
+     void ManualU(){
+         try {
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "Manual de usuario.pdf");
+            System.out.println("Final");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
      }
      
      public void Reporte(String Titulo, String relleno, String NameDoc){
@@ -105,6 +112,7 @@ public class FVentanaP extends javax.swing.JFrame {
         JMIGuardar = new javax.swing.JMenu();
         JMIAbrir = new javax.swing.JMenuItem();
         guardarComo = new javax.swing.JMenuItem();
+        AbrirFCA = new javax.swing.JMenuItem();
         jmEjecutar = new javax.swing.JMenu();
         jmiEjecutar = new javax.swing.JMenuItem();
         jmEliminarP = new javax.swing.JMenu();
@@ -216,6 +224,9 @@ public class FVentanaP extends javax.swing.JFrame {
             }
         });
         JMIGuardar.add(guardarComo);
+
+        AbrirFCA.setText("Abrir FCA");
+        JMIGuardar.add(AbrirFCA);
 
         jMenuBar1.add(JMIGuardar);
 
@@ -351,22 +362,17 @@ public class FVentanaP extends javax.swing.JFrame {
         String ST = jtEntrada.getText();
         Sintac AS = new Sintac(new Analizadores.LexiJSCup(new StringReader(ST)));
         String RespuestaAS = jtSalida.getText()+"\n \nINICIO ANALISIS SINTACTICO";
-        
-         
-        
+                
         try {
            AS.parse();
            RespuestaAS +="\nFIN ANALISIS SINTACTICO";
-           
            jtSalida.setText(RespuestaAS);
            
         } catch (Exception ex) {
             for (int i = 0; i < ErrorM.size(); i++) {
-            RespuestaAS += "\n Error de sintaxis. "+  " Linea: " + ErrorM.get(i).getLinea() + ", Columna: " + ErrorM.get(i).getCol() +", Texto: " + ErrorM.get(i).getLex()  ;
+                RespuestaAS += "\n Error de sintaxis. "+  " Linea: " + ErrorM.get(i).getLinea() + ", Columna: " + ErrorM.get(i).getCol() +", Error: " + ErrorM.get(i).getLex();
             }
-            for(int i = 0; i < ErrorM.size(); i++) {
-                ErrorM.remove(0);
-            }
+            ErrorM.clear();            
             RespuestaAS +="\n FIN ANALISIS SINTACTICO";
             jtSalida.setText(RespuestaAS);
         }
@@ -496,6 +502,7 @@ public class FVentanaP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem AbrirFCA;
     private javax.swing.JMenuItem EmininarPestaña;
     private javax.swing.JMenuItem JMIAbrir;
     private javax.swing.JMenuItem JMICrearP;
