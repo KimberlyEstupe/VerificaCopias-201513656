@@ -108,7 +108,9 @@ TIPOBARRA::= Dolar LlaveA LlaveC
 
 VARIABLEBARRA::=
     Coma Cadena
-    | Coma Cadena VARIABLEBARRA;
+    | Coma Cadena VARIABLEBARRA
+    | Coma Identificador
+    | Coma Identificador VARIABLEBARRA;
 
 /***********************  LINEAS  *****************************/
 DLINEAS::= DLINEA DLINEAS
@@ -142,4 +144,4 @@ COMPARE::= Compare ParenA ParenC PComa
     | Compare ParenA Cadena Coma Cadena ParenC PComa
     | Compare ParenA Ruta ParenC PComa
     | Compare ParenA Ruta Coma Ruta ParenC PComa
-    ;
+;
