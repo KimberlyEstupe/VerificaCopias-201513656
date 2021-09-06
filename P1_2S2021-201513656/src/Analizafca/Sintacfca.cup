@@ -43,7 +43,9 @@ terminal Globales, GBarras, GLineas, GPie, Compare, String, Double, EjeX, Titulo
 //------------------------------------ NO TERMINALES -------------------------------------------------- 
 /*Son creadas para cup*/
 non terminal INICIO, INSESTADISTICOS, INSESTADISTICO, 
-    DGLOBALES, DGLOBALE, VARIABLEBARRA, TIPOBARRA;
+    DGLOBALES, DGLOBALE, VARIABLEBARRA, TIPOBARRA,
+    DBARRAS, EJESX, VALOREE, VALOREES,DBARRA,
+    DLINEA, DLINEAS;
 
 
 //------------------------------------ inicio de producciones --------------------------------------------------
@@ -62,8 +64,11 @@ INSESTADISTICO::=
     | GLineas LlaveA LlaveC
     | GPie LlaveA LlaveC 
     | Globales LlaveA DGLOBALES LlaveC
+    | GBarras LlaveA DBARRAS LlaveC
+    | GLineas LlaveA DLINEAS LlaveC
     | error LlaveC;
 
+/***********************  GLOBALES  *****************************/
 DGLOBALES::= DGLOBALE DGLOBALES
     | DGLOBALE;
 
@@ -73,9 +78,54 @@ DGLOBALE::=
     | Double Identificador Igual TIPOBARRA PComa
     | error PComa;
 
+
+
+/***********************  BARRAS  *****************************/
+DBARRAS::= DBARRA DBARRAS
+    |DBARRA;
+
+DBARRA::= 
+    Titulo DPuntos Cadena PComa
+    | Titulo DPuntos Identificador PComa
+    | EjeX DPuntos CorcheA CorcheC PComa
+    | EjeX DPuntos CorcheA EJESX CorcheC PComa
+    | Valores DPuntos CorcheA CorcheC PComa
+    | Valores DPuntos CorcheA VALOREES CorcheC PComa
+    | TituloX DPuntos Cadena PComa
+    | TituloX DPuntos Identificador PComa
+    | TituloY DPuntos Cadena PComa
+    | TituloY DPuntos Identificador PComa
+    |error PComa;
+
+EJESX::= Identificador  Coma EJESX
+    | Cadena Coma EJESX
+    | Identificador 
+    | Cadena;
+
+VALOREES::= VALOREE VALOREES
+    |VALOREE;
+
+VALOREE::= Identificador
+    | Cadena
+    | TIPOBARRA
+    | Coma Identificador
+    | Coma Cadena
+    | Coma TIPOBARRA;
+
 TIPOBARRA::= Dolar LlaveA LlaveC 
     | Dolar LlaveA Identificador VARIABLEBARRA LlaveC;
 
 VARIABLEBARRA::=
     Coma Cadena
     | Coma Cadena VARIABLEBARRA;
+
+/***********************  LINEAS  *****************************/
+DLINEAS::= DLINEA DLINEAS
+    | DLINEA;
+
+DLINEA::= Titulo DPuntos Cadena PComa
+    | Titulo DPuntos Identificador PComa
+    | Archivo DPuntos Cadena PComa
+    | Archivo DPuntos Identificador PComa ;
+
+/***********************  PIE  *****************************/

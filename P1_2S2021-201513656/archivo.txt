@@ -41,29 +41,42 @@ GenerarReporteEstadistico{
         String t1="Comparacion de metodos";
     }
 
-    #*
-    Este comentario debería ser ignorado 189214'!""$%$&"#$"#"#4
-    *#
 
-  
+
+    ##Cargamos los proyectos correspondientes
+ 
+
     GraficaLineas{
-   }
+        TiTulO: reporteResumen; 
+        ArChIvO: "file_1.js";
+    }
 
     graficalineas{
-     }
+        titulo: "Reporte file_2"; 
+        archivo: "file_2.js";
+    }
 
     ## Agregamos las graficas de barras
 
     GraficaBarras {
+        Titulo: titulobarrasreal;
+        EjeX: [ "triangle_draw", "draw_triangle_i", "sq_draw", "draw_square_i", "draw_square_j", "draw_triangle_j", "draw_triangle_draw", "draw_square_draw", "x", "a" ];
+        Valores: [ pr1, pr2, pr3, pr4, pr5, pr6, pr9, pr12, pr15, pr16 ];
+        TituloX: "Nombre de las variables";
+        TituloY: "Puntaje";
     }
 
     GraficaBarras {
-     }
+        Titulo: titulobarrasesperada;
+        EjeX: [ "triangle_draw", "draw_triangle_i", "sq_draw", "draw_square_i", "draw_square_j", "draw_triangle_j", "draw_triangle_draw", "draw_square_draw", "x", "a" ];
+        Valores: [ pe1, pe2, pe3, pe4, pe5, pe6, pe9, pe12, pe15, pe16 ];
+        TituloX: "Nombre de las variables";
+        TituloY: "Puntaje";
+    }
 
     ## AGREGANdo Graficas de Pie
 
-    GraficaPie{
-    }
+ 
 
     #*
         OJO: Es posible que se suba otro ejemplo de grafica de pie
