@@ -11,8 +11,6 @@ parser code
         int linea = s.right+1;
         int columna = s.left;
         String encontrado = s.value.toString();
-
-        System.out.println(encontrado);
         FVentanaP.AddES(encontrado, "Sintactico", "archivo",linea,columna);//Lista de Reporte
     }
 
@@ -22,8 +20,6 @@ parser code
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
     {
-        System.out.println("MODO PANICO");
-
         int linea = s.right;
         int columna = s.left;
         String encontrado = s.value.toString();

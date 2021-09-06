@@ -53,7 +53,7 @@ TituloY         {return new Symbol(sym.TituloY , yycolumn, yyline, yytext());}
 Archivo         {return new Symbol(sym.Archivo , yycolumn, yyline, yytext());}
 
 ("(")        {return new Symbol(sym.ParenA, yycolumn, yyline, yytext());}
-(")")        {return new Symbol(sym.ParenC, yycolumn, yyline, yytext());}
+(")")        {return new Symbol(sym.ParenA, yycolumn, yyline, yytext());}
 ("{")        {return new Symbol(sym.LlaveA, yycolumn, yyline, yytext());}
 ("}")        {return new Symbol(sym.LlaveC, yycolumn, yyline, yytext());}
 ("[")        {return new Symbol(sym.CorcheA, yycolumn, yyline, yytext());}

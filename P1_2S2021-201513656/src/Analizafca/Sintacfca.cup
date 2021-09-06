@@ -12,8 +12,6 @@ parser code
         int linea = s.right+1;
         int columna = s.left;
         String encontrado = s.value.toString();
-
-        System.out.println(encontrado);
         FVentanaP.AddES(encontrado, "Sintactico", "archivo",linea,columna);//Lista de Reporte
     }
 
@@ -23,9 +21,7 @@ parser code
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
     {
-        System.out.println("MODO PANICO");
-
-        int linea = s.right;
+         int linea = s.right;
         int columna = s.left;
         String encontrado = s.value.toString();
         FVentanaP.AddES(encontrado, "Sintactico Panico", "archivo",linea,columna);
@@ -46,7 +42,7 @@ non terminal INICIO, INSESTADISTICOS, INSESTADISTICO,
     DGLOBALES, DGLOBALE, VARIABLEBARRA, TIPOBARRA,
     DBARRAS, EJESX, VALOREE, VALOREES,DBARRA,
     DLINEA, DLINEAS,DPIES, DPIE,
-    DREUTILIZADAS;
+    DREUTILIZADAS, COMPARE;
 
 
 //------------------------------------ inicio de producciones --------------------------------------------------
@@ -68,6 +64,7 @@ INSESTADISTICO::=
     | GBarras LlaveA DBARRAS LlaveC
     | GLineas LlaveA DLINEAS LlaveC
     | GPie LlaveA DPIES LlaveC
+    |COMPARE
     | error LlaveC;
 
 /***********************  GLOBALES  *****************************/
@@ -121,6 +118,7 @@ DLINEA::= Titulo DPuntos Cadena PComa
     | Titulo DPuntos Identificador PComa
     | Archivo DPuntos Cadena PComa
     | Archivo DPuntos Identificador PComa 
+    | COMPARE
     | error PComa;
 
 /***********************  PIE  *****************************/
@@ -129,11 +127,19 @@ DLINEA::= Titulo DPuntos Cadena PComa
 
 DPIE::= DREUTILIZADAS;
 
-
 /***********************  REUTILIZADA  *****************************/
 DREUTILIZADAS::=Titulo DPuntos Cadena PComa
     | Titulo DPuntos Identificador PComa
     | EjeX DPuntos CorcheA CorcheC PComa
     | EjeX DPuntos CorcheA EJESX CorcheC PComa
     | Valores DPuntos CorcheA CorcheC PComa
-    | Valores DPuntos CorcheA VALOREES CorcheC PComa;
+    | Valores DPuntos CorcheA VALOREES CorcheC PComa
+    | COMPARE;
+
+/***********************  COMPARE  *****************************/
+COMPARE::= Compare ParenA ParenC PComa
+    | Compare ParenA Cadena ParenC PComa
+    | Compare ParenA Cadena Coma Cadena ParenC PComa
+    | Compare ParenA Ruta ParenC PComa
+    | Compare ParenA Ruta Coma Ruta ParenC PComa
+    ;

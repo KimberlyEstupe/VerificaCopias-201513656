@@ -1,81 +1,46 @@
-##Este es un ejemplo de un archivo de reportería FCA
+## este es un comentario de una línea
+#*
+Este es
+Un comentario
+Multilínea*# 
+
+
 
 GenerarReporteEstadistico{
+DefinirGlobales
+{
+ string reporte1 = “Reporte 1”;
+ double pe1 = 0.8;
+ Compare(‘C:\OLC1\Proyectos\ProyectoA’, ‘C:\OLC1\Proyectos\ProyectoB’); 
 
-    definirglobales{
-        string reporteResumen = "Reporte de Archivo file_1.js de los proyectos";
+ double pe2 = 0.5;
+ double pe3 = 0.2;
+ double po1 = ${ PuntajeEspecifico, “archivo1.js”, “clase”, “clase1”};
+ double po2 = ${ PuntajeEspecifico, “archivo1.js”, “clase”, “clase2”};
+ string vart = “Valor Obtenido”;
+ string var2 = “Valore Esperado clase 1”;
+ string var22 = “Valor Obtenido clase 1”;
+string var3 = “Valore Esperado clase 2”;
+ string var3 = “Valor Obtenido clase 2”;
+}
 
-        ## variables para Reportes de Barras
+## este es un comentario de una línea
+GraficaBarras{
+ Titulo: reporte1;
+Ejex: [ “Probabilidad Esperada clase 1”, “Probabilidad Obtenida Clase 1”, var2, var22, var3, var33];
+Valores: [ pe1, po1, pe2, po2, pe3, ${ PuntajeEspecifico, “archivo1.js”, “clase”, “clase3”} ];
+TituloX: “Atributo”;
+TituloY: “Puntaje”;
+}
 
-        Double pr1 = ${PuntajeEspecifico,"file_1.js","variable","triangle_draw"};
-        Double pr2 = ${PuntajeEspecifico,"file_1.js","variable","draw_triangle_i"};
-        Double pr3 = ${PuntajeEspecifico,"file_1.js","variable","sq_draw"};
-        Double pr4 = ${PuntajeEspecifico,"file_1.js","variable","draw_square_i"};
-        Double pr5 = ${PuntajeEspecifico,"file_1.js","variable","draw_square_j"};
-        Double pr6 = ${PuntajeEspecifico,"file_1.js","variable","draw_triangle_j"};
-        Double pr9 = ${PuntajeEspecifico,"file_1.js","variable","draw_triangle_draw"};
-        Double pr12 = ${PuntajeEspecifico,"file_1.js","variable","draw_square_draw"};
-        Double pr15 = ${PuntajeEspecifico,"file_1.js","variable","x"};
-        Double pr16 = ${PuntajeEspecifico,"file_1.js","variable","a"};
+GraficaLineas{
+ Titulo: reporteResumen;
+ Archivo: “archivo 1”;
+}
 
-        Double pe1 = 0;
-        Double pe2 = 1;
-        Double pe3 = 0;
-        Double pe4 = 1;
-        Double pe5 = 1;
-        Double pe6 = 1;
-        Double pe9 = 0;
-        Double pe12 = 0;
-        Double pe15 = 0;
-        Double pe16 = 0;
-
-        String titulobarrasesperada = "Probabilidades esperadas para variables archivo file_1.js";
-        String titulobarrasreal = "Probabilidades obtenidas para variables archivo file_1.js";
-
-        Double p1=${PuntajeEspecifico, "file_2.js","metodo","fibonacci_generator"};
-        Double p2=${PuntajeEspecifico, "file_2.js","metodo","torresDeHanoi"};
-
-        String s1 = "hanoi_generator";
-        String s2 = "fact_generator";
-
-        String t1="Comparacion de metodos";
-    }
-
-   
-
-    GraficaLineas{
-        TiTulO: reporteResumen; 
-        ArChIvO: "file_1.js";
-    }
-
-    graficalineas{
-        titulo: "Reporte file_2"; 
-        archivo: "file_2.js";
-    }
-
-    ## Agregamos las graficas de barras
-
-    GraficaBarras {
-      }
-
-    GraficaBarras {
-        Titulo: titulobarrasesperada;
-        EjeX: [ "triangle_draw", "draw_triangle_i", "sq_draw", "draw_square_i", "draw_square_j", "draw_triangle_j", "draw_triangle_draw", "draw_square_draw", "x", "a" ];
-        Valores: [ pe1, pe2, pe3, pe4, pe5, pe6, pe9, pe12, pe15, pe16 ];
-        TituloX: "Nombre de las variables";
-        TituloY: "Puntaje";
-    }
-
-    ## AGREGANdo Graficas de Pie
-
-    GraficaPie{
-        Titulo: t1;
-        EjeX: [ "fibonacci_generator", "torresDeHanoi", s1, s2 ];
-        Valores: [ p1, p2, ${PuntajeEspecifico, "file_2.js","metodo","hanoi_generator"}, ${PuntajeEspecifico, "file_2.js","metodo","fact_generator"} ];
-    }
-
-    #*
-        OJO: Es posible que se suba otro ejemplo de grafica de pie
-    *#
-
+GraficaPie{
+ Titulo: reporte1;
+Ejex: [ “Probabilidad Esperada clase 1”, “Probabilidad Obtenida Clase 1”, var2, var22, var3, var33];
+Valores: [ pe1, po1, pe2, po2, pe3, ${ PuntajeEspecifico, “archivo1.js”, “clase”, “clase3”} ];
+} 
 }

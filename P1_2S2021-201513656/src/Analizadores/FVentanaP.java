@@ -85,10 +85,7 @@ public class FVentanaP extends javax.swing.JFrame {
          html += "    </table>\n"
                 + " </center></body>\n"
                 + "</html>";
-         arc.Reportes(html,NameDoc );
-         
-         
-        System.out.println("dd/MM/yyyy HH:mm-> "+fechar_hora.format(LocalDateTime.now()));
+         arc.Reportes(html,NameDoc );        
      }
 
     
