@@ -37,10 +37,45 @@ parser code
 terminal Globales, GBarras, GLineas, GPie, Compare, String, Double, EjeX, Titulo, Valores, 
     TituloX, TituloY, Archivo, 
     ParenA, ParenC, LlaveA, LlaveC, CorcheA, CorcheC, 
-    Cadena, Numero, Identificador, Ruta; 
+    Igual, Dolar, PComa, Punto,Coma, DPuntos,
+    Cadena, Numero, Identificador, Ruta, REstadisticos; 
 
 //------------------------------------ NO TERMINALES -------------------------------------------------- 
 /*Son creadas para cup*/
-non terminal INICIO;
+non terminal INICIO, INSESTADISTICOS, INSESTADISTICO, 
+    DGLOBALES, DGLOBALE, VARIABLEBARRA, TIPOBARRA;
 
-INICIO::= Globales ParenA ParenC;
+
+//------------------------------------ inicio de producciones --------------------------------------------------
+start with INICIO;
+
+INICIO::= REstadisticos LlaveA LlaveC
+    |REstadisticos LlaveA INSESTADISTICOS LlaveC
+    | error LlaveC;
+
+INSESTADISTICOS::= INSESTADISTICO INSESTADISTICOS 
+    |INSESTADISTICO;
+
+INSESTADISTICO::= 
+     Globales LlaveA LlaveC
+    | GBarras LlaveA LlaveC
+    | GLineas LlaveA LlaveC
+    | GPie LlaveA LlaveC 
+    | Globales LlaveA DGLOBALES LlaveC
+    | error LlaveC;
+
+DGLOBALES::= DGLOBALE DGLOBALES
+    | DGLOBALE;
+
+DGLOBALE::= 
+      String Identificador Igual Cadena PComa
+    | Double Identificador Igual Numero PComa
+    | Double Identificador Igual TIPOBARRA PComa
+    | error PComa;
+
+TIPOBARRA::= Dolar LlaveA LlaveC 
+    | Dolar LlaveA Identificador VARIABLEBARRA LlaveC;
+
+VARIABLEBARRA::=
+    Coma Cadena
+    | Coma Cadena VARIABLEBARRA;

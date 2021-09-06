@@ -1,43 +1,72 @@
-## este es un comentario de una línea
-#*
-Este es
-Un comentario
-Multilínea*# 
+##Este es un ejemplo de un archivo de reportería FCA
 
+GenerarReporteEstadistico{
 
-DefinirGlobales
-{
- string reporte1 = “Reporte 1”;
- double pe1 = 0.8;
- Compare(‘C:\OLC1\Proyectos\ProyectoA’, ‘C:\OLC1\Proyectos\ProyectoB’); 
+    definirglobales{
+        string reporteResumen = "Reporte de Archivo file_1.js de los proyectos";
 
- double pe2 = 0.5;
- double pe3 = 0.2;
- double po1 = ${ PuntajeEspecifico, “archivo1.js”, “clase”, “clase1”};
- double po2 = ${ PuntajeEspecifico, “archivo1.js”, “clase”, “clase2”};
- string vart = “Valor Obtenido”;
- string var2 = “Valore Esperado clase 1”;
- string var22 = “Valor Obtenido clase 1”;
-string var3 = “Valore Esperado clase 2”;
- string var3 = “Valor Obtenido clase 2”;
+        ## variables para Reportes de Barras
+
+        Double pr1 = ${PuntajeEspecifico,"file_1.js","variable","triangle_draw"};
+        Double pr2 = ${PuntajeEspecifico,"file_1.js","variable","draw_triangle_i"};
+        Double pr3 = ${PuntajeEspecifico,"file_1.js","variable","sq_draw"};
+        Double pr4 = ${PuntajeEspecifico,"file_1.js","variable","draw_square_i"};
+        Double pr5 = ${PuntajeEspecifico,"file_1.js","variable","draw_square_j"};
+        Double pr6 = ${PuntajeEspecifico,"file_1.js","variable","draw_triangle_j"};
+        Double pr9 = ${PuntajeEspecifico,"file_1.js","variable","draw_triangle_draw"};
+        Double pr12 = ${PuntajeEspecifico,"file_1.js","variable","draw_square_draw"};
+        Double pr15 = ${PuntajeEspecifico,"file_1.js","variable","x"};
+        Double pr16 = ${PuntajeEspecifico,"file_1.js","variable","a"};
+
+        Double pe1 = 0;
+        Double pe2 = 1;
+        Double pe3 = 0;
+        Double pe4 = 1;
+        Double pe5 = 1;
+        Double pe6 = 1;
+        Double pe9 = 0;
+        Double pe12 = 0;
+        Double pe15 = 0;
+        Double pe16 = 0;
+
+        String titulobarrasesperada = "Probabilidades esperadas para variables archivo file_1.js";
+        String titulobarrasreal = "Probabilidades obtenidas para variables archivo file_1.js";
+
+        Double p1=${PuntajeEspecifico, "file_2.js","metodo","fibonacci_generator"};
+        Double p2=${PuntajeEspecifico, "file_2.js","metodo","torresDeHanoi"};
+
+        String s1 = "hanoi_generator";
+        String s2 = "fact_generator";
+
+        String t1="Comparacion de metodos";
+    }
+
+    #*
+    Este comentario debería ser ignorado 189214'!""$%$&"#$"#"#4
+    *#
+
+  
+    GraficaLineas{
+   }
+
+    graficalineas{
+     }
+
+    ## Agregamos las graficas de barras
+
+    GraficaBarras {
+    }
+
+    GraficaBarras {
+     }
+
+    ## AGREGANdo Graficas de Pie
+
+    GraficaPie{
+    }
+
+    #*
+        OJO: Es posible que se suba otro ejemplo de grafica de pie
+    *#
+
 }
-
-## este es un comentario de una línea
-GraficaBarras{
- Titulo: reporte1;
-Ejex: [ “Probabilidad Esperada clase 1”, “Probabilidad Obtenida Clase 1”, var2, var22, var3, var33];
-Valores: [ pe1, po1, pe2, po2, pe3, ${ PuntajeEspecifico, “archivo1.js”, “clase”, “clase3”} ];
-TituloX: “Atributo”;
-TituloY: “Puntaje”;
-}
-
-GraficaLineas{
- Titulo: reporteResumen;
- Archivo: “archivo 1”;
-}
-
-GraficaPie{
- Titulo: reporte1;
-Ejex: [ “Probabilidad Esperada clase 1”, “Probabilidad Obtenida Clase 1”, var2, var22, var3, var33];
-Valores: [ pe1, po1, pe2, po2, pe3, ${ PuntajeEspecifico, “archivo1.js”, “clase”, “clase3”} ];
-} 

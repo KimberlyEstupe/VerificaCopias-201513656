@@ -289,6 +289,11 @@ public class FVentanaP extends javax.swing.JFrame {
         jMenu1.add(MUsuario);
 
         Gramaticas.setText("Gramaticas");
+        Gramaticas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GramaticasActionPerformed(evt);
+            }
+        });
         jMenu1.add(Gramaticas);
 
         jMenuBar1.add(jMenu1);
@@ -334,12 +339,12 @@ public class FVentanaP extends javax.swing.JFrame {
          try {
             Reader lector = new BufferedReader(new FileReader("archivo.txt"));
             LexiJS lexjs = new LexiJS (lector);
-            String resultado="Inicio Analisis Lexico \n";
+            String resultado="Inicio Analisis Lexico JS\n";
             
             while (true) {
                 Tokenjs tokens = lexjs.yylex();
                 if(tokens == null){
-                    resultado += "Fin Analisis Lexico";
+                    resultado += "Fin Analisis Lexico JS";
                     jtSalida.setText(resultado);
                     return;
                 }
@@ -377,7 +382,7 @@ public class FVentanaP extends javax.swing.JFrame {
     public void AnSintac(){        
         String ST = jtEntrada.getText();
         Sintac AS = new Sintac(new Analizadores.LexiJSCup(new StringReader(ST)));
-        String RespuestaAS = jtSalida.getText()+"\n \nINICIO ANALISIS SINTACTICO";
+        String RespuestaAS = jtSalida.getText()+"\n \nINICIO ANALISIS SINTACTICO JS";
                 
         try {
            AS.parse();
@@ -390,13 +395,13 @@ public class FVentanaP extends javax.swing.JFrame {
                 rErrores.get(i).setArchivo(NameArchivo);
         }
             ErrorM.clear();            
-            RespuestaAS +="\n FIN ANALISIS SINTACTICO";
+            RespuestaAS +="\n FIN ANALISIS SINTACTICO JS";
             jtSalida.setText(RespuestaAS);
     }
     
     public void AnSintacFCA(){        
         String ST = jtEntrada.getText();   
-        String RespuestaAS = jtSalida.getText()+"\n \nINICIO ANALISIS SINTACTICO";
+        String RespuestaAS = jtSalida.getText()+"\n \nINICIO ANALISIS SINTACTICO FCA";
         
         Analisisfca.AnalisisFC(ST);
         
@@ -406,7 +411,7 @@ public class FVentanaP extends javax.swing.JFrame {
                 rErrores.get(i).setArchivo(NameArchivo);
         }
             ErrorM.clear();            
-            RespuestaAS +="\n FIN ANALISIS SINTACTICO";
+            RespuestaAS +="\n FIN ANALISIS SINTACTICO FCA";
             jtSalida.setText(RespuestaAS);
     }
     
@@ -427,12 +432,12 @@ public class FVentanaP extends javax.swing.JFrame {
         try {
             Reader lector = new BufferedReader(new FileReader("archivo.txt"));
             Lexifca lexfca = new Lexifca (lector);
-            String resultado="Inicio Analisis Lexico \n";
+            String resultado="Inicio Analisis Lexico FCA\n";
             
             while (true) {
                 Tokensfca tokfac = lexfca.yylex();
                 if(tokfac == null){
-                    resultado += "Fin Analisis Lexico";
+                    resultado += "Fin Analisis Lexico FCA";
                     jtSalida.setText(resultado);
                     return;
                 }
@@ -563,6 +568,11 @@ public class FVentanaP extends javax.swing.JFrame {
         Archivo arc = new Archivo();
         arc.Manuales("ManualTecnico.pdf");
     }//GEN-LAST:event_MTecnicoActionPerformed
+
+    private void GramaticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GramaticasActionPerformed
+        Archivo arc = new Archivo();
+        arc.Manuales("Gramatica.pdf");
+    }//GEN-LAST:event_GramaticasActionPerformed
 
     
         

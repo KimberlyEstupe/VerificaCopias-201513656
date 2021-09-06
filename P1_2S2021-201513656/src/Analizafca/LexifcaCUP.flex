@@ -7,6 +7,7 @@ import java_cup.runtime.Symbol;
 %full
 %line
 %column
+%ignorecase
 
 L = [a-zA-Z_]+
 D = [0-9]+
@@ -18,7 +19,7 @@ COMMULTI = [\#][\*]((.)|"\n")*[\*][\#] //comentario multilinea
 COM = [\#][\#](.)* // Comentario uniline
 R1 = [\'](.)*[\']
 R2 = [\‘](.)*[\’]
-espacio=[ \t\r]+
+espacio=[ \t\r\n]+
 
 %{
     public Symbol symbol(int type, Object value){
@@ -36,6 +37,7 @@ espacio=[ \t\r]+
 {COMMULTI} | {COM} {/* Comentario */}
 
 /*--------------------- PALABRAS RESERVADAS --------------------------------------------------------*/
+GenerarReporteEstadistico {return new Symbol(sym.REstadisticos, yycolumn, yyline, yytext());}
 DefinirGlobales {return new Symbol(sym.Globales, yycolumn, yyline, yytext());}
 GraficaBarras   {return new Symbol(sym.GBarras, yycolumn, yyline, yytext());}
 GraficaLineas   {return new Symbol(sym.GLineas, yycolumn, yyline, yytext());}
@@ -56,6 +58,13 @@ Archivo         {return new Symbol(sym.Archivo , yycolumn, yyline, yytext());}
 ("}")        {return new Symbol(sym.LlaveC, yycolumn, yyline, yytext());}
 ("[")        {return new Symbol(sym.CorcheA, yycolumn, yyline, yytext());}
 ("]")        {return new Symbol(sym.CorcheC, yycolumn, yyline, yytext());}
+
+("=")   {return new Symbol(sym.Igual , yycolumn, yyline, yytext());}
+"$"     {return new Symbol(sym.Dolar , yycolumn, yyline, yytext());}
+(";")   {return new Symbol(sym.PComa , yycolumn, yyline, yytext());}
+(".")   {return new Symbol(sym.Punto , yycolumn, yyline, yytext());}
+("\,")  {return new Symbol(sym.Coma , yycolumn, yyline, yytext());}
+(":")   {return new Symbol(sym.DPuntos , yycolumn, yyline, yytext());}
 
 ({C1} | {C2})   {return new Symbol(sym.Cadena, yycolumn, yyline, yytext());}
 {N}             {return new Symbol(sym.Numero, yycolumn, yyline, yytext());}

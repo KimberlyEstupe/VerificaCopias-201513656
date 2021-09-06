@@ -27,7 +27,7 @@ public class Pruebas {
         String[] RS = {"-parser", "Sintac","src/Analizadores/Sintac.cup"};
         String[] RS2 = {"-parser", "Sintacfca","src/Analizafca/Sintacfca.cup"};
         
-        AnalizarJS(R1+"LexiJS.flex", R1+"LexiJSCup.flex", RS);
+        //AnalizarJS(R1+"LexiJS.flex", R1+"LexiJSCup.flex", RS);
         Analizarfca(R1+"Lexifca.flex",R2,RS2 );
     }
     

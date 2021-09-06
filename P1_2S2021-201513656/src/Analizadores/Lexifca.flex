@@ -5,6 +5,7 @@ import static Analizadores.Tokensfca.*;
 %type Tokensfca
 %line
 %column
+%ignorecase
 %init{
     yyline = 1;
     yycolumn = 1;
@@ -36,7 +37,7 @@ R2 = [\‘](.)*[\’]
 {COMMULTI}  {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Comentario_Multilinea;}
 {COM}       {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Comentario;}
 
-
+GenerarReporteEstadistico {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Reportes_Estadisticos;}
 DefinirGlobales {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Definir_Globales;}
 GraficaBarras   {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Grafica_Barras;}
 GraficaLineas   {Lexefca=yytext();Lineafca =yyline;Colufca=yycolumn;  return Grafica_Lineas;}

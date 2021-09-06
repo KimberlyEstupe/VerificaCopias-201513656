@@ -42,5 +42,6 @@ public enum Tokensfca {
     Identificador,
     Char,
     Ruta,
+    Reportes_Estadisticos,
     ERROR
 }
