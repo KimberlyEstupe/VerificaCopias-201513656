@@ -45,7 +45,8 @@ terminal Globales, GBarras, GLineas, GPie, Compare, String, Double, EjeX, Titulo
 non terminal INICIO, INSESTADISTICOS, INSESTADISTICO, 
     DGLOBALES, DGLOBALE, VARIABLEBARRA, TIPOBARRA,
     DBARRAS, EJESX, VALOREE, VALOREES,DBARRA,
-    DLINEA, DLINEAS;
+    DLINEA, DLINEAS,DPIES, DPIE,
+    DREUTILIZADAS;
 
 
 //------------------------------------ inicio de producciones --------------------------------------------------
@@ -66,6 +67,7 @@ INSESTADISTICO::=
     | Globales LlaveA DGLOBALES LlaveC
     | GBarras LlaveA DBARRAS LlaveC
     | GLineas LlaveA DLINEAS LlaveC
+    | GPie LlaveA DPIES LlaveC
     | error LlaveC;
 
 /***********************  GLOBALES  *****************************/
@@ -78,19 +80,11 @@ DGLOBALE::=
     | Double Identificador Igual TIPOBARRA PComa
     | error PComa;
 
-
-
 /***********************  BARRAS  *****************************/
 DBARRAS::= DBARRA DBARRAS
     |DBARRA;
 
-DBARRA::= 
-    Titulo DPuntos Cadena PComa
-    | Titulo DPuntos Identificador PComa
-    | EjeX DPuntos CorcheA CorcheC PComa
-    | EjeX DPuntos CorcheA EJESX CorcheC PComa
-    | Valores DPuntos CorcheA CorcheC PComa
-    | Valores DPuntos CorcheA VALOREES CorcheC PComa
+DBARRA::= DREUTILIZADAS
     | TituloX DPuntos Cadena PComa
     | TituloX DPuntos Identificador PComa
     | TituloY DPuntos Cadena PComa
@@ -126,6 +120,20 @@ DLINEAS::= DLINEA DLINEAS
 DLINEA::= Titulo DPuntos Cadena PComa
     | Titulo DPuntos Identificador PComa
     | Archivo DPuntos Cadena PComa
-    | Archivo DPuntos Identificador PComa ;
+    | Archivo DPuntos Identificador PComa 
+    | error PComa;
 
 /***********************  PIE  *****************************/
+ DPIES::= DPIE DPIES
+    | DPIE;
+
+DPIE::= DREUTILIZADAS;
+
+
+/***********************  REUTILIZADA  *****************************/
+DREUTILIZADAS::=Titulo DPuntos Cadena PComa
+    | Titulo DPuntos Identificador PComa
+    | EjeX DPuntos CorcheA CorcheC PComa
+    | EjeX DPuntos CorcheA EJESX CorcheC PComa
+    | Valores DPuntos CorcheA CorcheC PComa
+    | Valores DPuntos CorcheA VALOREES CorcheC PComa;

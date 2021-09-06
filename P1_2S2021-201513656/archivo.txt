@@ -41,10 +41,7 @@ GenerarReporteEstadistico{
         String t1="Comparacion de metodos";
     }
 
-
-
-    ##Cargamos los proyectos correspondientes
- 
+   
 
     GraficaLineas{
         TiTulO: reporteResumen; 
@@ -59,12 +56,7 @@ GenerarReporteEstadistico{
     ## Agregamos las graficas de barras
 
     GraficaBarras {
-        Titulo: titulobarrasreal;
-        EjeX: [ "triangle_draw", "draw_triangle_i", "sq_draw", "draw_square_i", "draw_square_j", "draw_triangle_j", "draw_triangle_draw", "draw_square_draw", "x", "a" ];
-        Valores: [ pr1, pr2, pr3, pr4, pr5, pr6, pr9, pr12, pr15, pr16 ];
-        TituloX: "Nombre de las variables";
-        TituloY: "Puntaje";
-    }
+      }
 
     GraficaBarras {
         Titulo: titulobarrasesperada;
@@ -76,7 +68,11 @@ GenerarReporteEstadistico{
 
     ## AGREGANdo Graficas de Pie
 
- 
+    GraficaPie{
+        Titulo: t1;
+        EjeX: [ "fibonacci_generator", "torresDeHanoi", s1, s2 ];
+        Valores: [ p1, p2, ${PuntajeEspecifico, "file_2.js","metodo","hanoi_generator"}, ${PuntajeEspecifico, "file_2.js","metodo","fact_generator"} ];
+    }
 
     #*
         OJO: Es posible que se suba otro ejemplo de grafica de pie
