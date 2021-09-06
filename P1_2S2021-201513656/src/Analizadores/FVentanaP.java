@@ -57,15 +57,7 @@ public class FVentanaP extends javax.swing.JFrame {
          rErrores.add(error);
      }
      
-     void ManualU(){
-         try {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "Manual de usuario.pdf");
-            System.out.println("Final");
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-     }
+     
      
      public void Reporte(String Titulo, String relleno, String NameDoc){
          Archivo arc = new Archivo();
@@ -117,16 +109,16 @@ public class FVentanaP extends javax.swing.JFrame {
         JMIGuardar = new javax.swing.JMenu();
         JMIAbrir = new javax.swing.JMenuItem();
         AbrirFCA = new javax.swing.JMenuItem();
-        guardarComo = new javax.swing.JMenuItem();
         jmEjecutar = new javax.swing.JMenu();
         jmiEjecutar = new javax.swing.JMenuItem();
         AnalisisFCA = new javax.swing.JMenuItem();
-        jmEliminarP = new javax.swing.JMenu();
-        JMICrearP = new javax.swing.JMenuItem();
-        EmininarPestaña = new javax.swing.JMenuItem();
         jmReporyes = new javax.swing.JMenu();
         ReporteErrores = new javax.swing.JMenuItem();
         ReporteTokens = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        MTecnico = new javax.swing.JMenuItem();
+        MUsuario = new javax.swing.JMenuItem();
+        Gramaticas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -231,14 +223,6 @@ public class FVentanaP extends javax.swing.JFrame {
         });
         JMIGuardar.add(AbrirFCA);
 
-        guardarComo.setText("Guardar Como");
-        guardarComo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarComoActionPerformed(evt);
-            }
-        });
-        JMIGuardar.add(guardarComo);
-
         jMenuBar1.add(JMIGuardar);
 
         jmEjecutar.setText("Ejecutar");
@@ -266,16 +250,6 @@ public class FVentanaP extends javax.swing.JFrame {
 
         jMenuBar1.add(jmEjecutar);
 
-        jmEliminarP.setText("Petañas");
-
-        JMICrearP.setText("Agrear ");
-        jmEliminarP.add(JMICrearP);
-
-        EmininarPestaña.setText("Eliminar");
-        jmEliminarP.add(EmininarPestaña);
-
-        jMenuBar1.add(jmEliminarP);
-
         jmReporyes.setText("Resportes");
 
         ReporteErrores.setText("Reporte Errores");
@@ -295,6 +269,29 @@ public class FVentanaP extends javax.swing.JFrame {
         jmReporyes.add(ReporteTokens);
 
         jMenuBar1.add(jmReporyes);
+
+        jMenu1.setText("Ayuda");
+
+        MTecnico.setText("Manual Tecnico");
+        MTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MTecnicoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MTecnico);
+
+        MUsuario.setText("Manual de Usuario");
+        MUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MUsuario);
+
+        Gramaticas.setText("Gramaticas");
+        jMenu1.add(Gramaticas);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -461,49 +458,6 @@ public class FVentanaP extends javax.swing.JFrame {
         }
     }
     
-    private void JMIAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIAbrirActionPerformed
-        JFileChooser Narchivo = new JFileChooser(); //crea JFileChooser (visualizacion de fichero)      
-        int x = Narchivo.showOpenDialog(this);//escoje el fichero
-        if (x == JFileChooser.APPROVE_OPTION) {
-            File fichero = Narchivo.getSelectedFile();            
-            rutaFichero = fichero.getAbsolutePath();
-            NameArchivo = fichero.getName();
-            if (NameArchivo.endsWith("js")) {// verifica extension                
-                abierto = true;
-                try(FileReader FR = new FileReader(fichero)){
-                    String textoF ="";
-                    int val = FR.read();               
-                    while(val!=-1){
-                        textoF+=(char)val;
-                        val=FR.read();
-                    }
-                    jtEntrada.setText("");
-                    jtSalida.setText("");
-                    jtEntrada.setText(textoF);
-                }catch(IOException e){   
-                    e.printStackTrace();
-                }                
-            }else{
-                JOptionPane.showMessageDialog(null, "ERROR \nEl archivo no es de extención 'js' vuelve a intentar","WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
-            }
-            
-        }
-
-    }//GEN-LAST:event_JMIAbrirActionPerformed
-
-    private void guardarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarComoActionPerformed
-        JFileChooser Narchivo = new JFileChooser(); //crea JFileChooser (visualizacion de fichero)      
-        int x = Narchivo.showOpenDialog(this);
-        if (x == JFileChooser.APPROVE_OPTION) {
-            File fichero = Narchivo.getSelectedFile();
-            try(FileWriter FW = new FileWriter(fichero)){
-                FW.write(rutaFichero);
-            }catch(IOException e){   
-                e.printStackTrace();
-            }  
-        }
-    }//GEN-LAST:event_guardarComoActionPerformed
-
     private void ReporteTokensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteTokensActionPerformed
         String texto="";
         for (int i = 0; i < rTokens.size(); i++) {
@@ -536,18 +490,24 @@ public class FVentanaP extends javax.swing.JFrame {
         Reporte("Reporte de Errores",texto,"ReporteErrores.html");
     }//GEN-LAST:event_ReporteErroresActionPerformed
 
+    private void AnalisisFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalisisFCAActionPerformed
+        // TODO add your handling code here:
+        AnalisisLexicoFCA();
+        AnSintacFCA();
+    }//GEN-LAST:event_AnalisisFCAActionPerformed
+
     private void AbrirFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirFCAActionPerformed
-        JFileChooser Narchivo = new JFileChooser(); //crea JFileChooser (visualizacion de fichero)      
+        JFileChooser Narchivo = new JFileChooser(); //crea JFileChooser (visualizacion de fichero)
         int x = Narchivo.showOpenDialog(this);//escoje el fichero
         if (x == JFileChooser.APPROVE_OPTION) {
-            File fichero = Narchivo.getSelectedFile();            
+            File fichero = Narchivo.getSelectedFile();
             rutaFichero = fichero.getAbsolutePath();
             NameArchivo = fichero.getName();
-            if (NameArchivo.endsWith("fca")) {// verifica extension                
+            if (NameArchivo.endsWith("fca")) {// verifica extension
                 abierto = true;
                 try(FileReader FR = new FileReader(fichero)){
                     String textoF ="";
-                    int val = FR.read();               
+                    int val = FR.read();
                     while(val!=-1){
                         textoF+=(char)val;
                         val=FR.read();
@@ -555,22 +515,56 @@ public class FVentanaP extends javax.swing.JFrame {
                     jtEntrada.setText("");
                     jtSalida.setText("");
                     jtEntrada.setText(textoF);
-                }catch(IOException e){   
+                }catch(IOException e){
                     e.printStackTrace();
-                }                
+                }
             }else{
                 JOptionPane.showMessageDialog(null, "ERROR \nEl archivo no es de extención 'fca' vuelve a intentar","WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
             }
-            
+
         }
     }//GEN-LAST:event_AbrirFCAActionPerformed
 
-    private void AnalisisFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalisisFCAActionPerformed
-        // TODO add your handling code here:
-        AnalisisLexicoFCA();
-        AnSintacFCA();
-    }//GEN-LAST:event_AnalisisFCAActionPerformed
+    private void JMIAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIAbrirActionPerformed
+        JFileChooser Narchivo = new JFileChooser(); //crea JFileChooser (visualizacion de fichero)
+        int x = Narchivo.showOpenDialog(this);//escoje el fichero
+        if (x == JFileChooser.APPROVE_OPTION) {
+            File fichero = Narchivo.getSelectedFile();
+            rutaFichero = fichero.getAbsolutePath();
+            NameArchivo = fichero.getName();
+            if (NameArchivo.endsWith("js")) {// verifica extension
+                abierto = true;
+                try(FileReader FR = new FileReader(fichero)){
+                    String textoF ="";
+                    int val = FR.read();
+                    while(val!=-1){
+                        textoF+=(char)val;
+                        val=FR.read();
+                    }
+                    jtEntrada.setText("");
+                    jtSalida.setText("");
+                    jtEntrada.setText(textoF);
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "ERROR \nEl archivo no es de extención 'js' vuelve a intentar","WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+            }
 
+        }
+    }//GEN-LAST:event_JMIAbrirActionPerformed
+
+    private void MUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MUsuarioActionPerformed
+         Archivo arc = new Archivo();
+         arc.Manuales("ManualUsuario.pdf");           
+    }//GEN-LAST:event_MUsuarioActionPerformed
+
+    private void MTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MTecnicoActionPerformed
+        Archivo arc = new Archivo();
+        arc.Manuales("ManualTecnico.pdf");
+    }//GEN-LAST:event_MTecnicoActionPerformed
+
+    
         
     /**
      * @param args the command line arguments
@@ -610,15 +604,16 @@ public class FVentanaP extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AbrirFCA;
     private javax.swing.JMenuItem AnalisisFCA;
-    private javax.swing.JMenuItem EmininarPestaña;
+    private javax.swing.JMenuItem Gramaticas;
     private javax.swing.JMenuItem JMIAbrir;
-    private javax.swing.JMenuItem JMICrearP;
     private javax.swing.JMenu JMIGuardar;
+    private javax.swing.JMenuItem MTecnico;
+    private javax.swing.JMenuItem MUsuario;
     private javax.swing.JMenuItem ReporteErrores;
     private javax.swing.JMenuItem ReporteTokens;
-    private javax.swing.JMenuItem guardarComo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -626,7 +621,6 @@ public class FVentanaP extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenu jmEjecutar;
-    private javax.swing.JMenu jmEliminarP;
     private javax.swing.JMenu jmReporyes;
     private javax.swing.JMenuItem jmiEjecutar;
     private javax.swing.JTextArea jtEntrada;

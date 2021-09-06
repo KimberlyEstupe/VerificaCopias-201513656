@@ -51,6 +51,14 @@ public class Archivo {
         
     }
     
-     
+    public void Manuales(String documento){
+        try {
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + documento);
+            System.out.println("Final");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
 }
