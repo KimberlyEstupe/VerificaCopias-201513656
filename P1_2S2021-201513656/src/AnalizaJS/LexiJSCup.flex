@@ -1,4 +1,4 @@
-package Analizadores;
+package AnalizaJS;
 import java_cup.runtime.Symbol;
 %%
 %class LexiJSCup

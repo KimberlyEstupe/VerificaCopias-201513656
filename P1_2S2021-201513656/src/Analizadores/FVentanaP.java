@@ -1,6 +1,7 @@
 package Analizadores;
 import Archivos.*;
 import Analizafca.*;
+import AnalizaJS.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -378,14 +379,8 @@ public class FVentanaP extends javax.swing.JFrame {
     
     public void AnSintac(){        
         String ST = jtEntrada.getText();
-        Sintac AS = new Sintac(new Analizadores.LexiJSCup(new StringReader(ST)));
         String RespuestaAS = jtSalida.getText()+"\n \nINICIO ANALISIS SINTACTICO JS";
-                
-        try {
-           AS.parse();
-        } catch (Exception ex) {
-            System.out.println("ERROR:"+ ex);
-        }
+        Analisisjs.AnalisisJS(ST);
         for (int i = 0; i < ErrorM.size(); i++) {
                 RespuestaAS += "\n Error de sintaxis. "+  " Linea: " + ErrorM.get(i).getLinea() + ", Columna: " + ErrorM.get(i).getCol() +", Error: " + ErrorM.get(i).getLex();
                 rErrores.add(ErrorM.get(i));
@@ -399,9 +394,8 @@ public class FVentanaP extends javax.swing.JFrame {
     public void AnSintacFCA(){        
         String ST = jtEntrada.getText();   
         String RespuestaAS = jtSalida.getText()+"\n \nINICIO ANALISIS SINTACTICO FCA";
-        
         Analisisfca.AnalisisFC(ST);
-        
+
         for (int i = 0; i < ErrorM.size(); i++) {
                 RespuestaAS += "\n Error de sintaxis. "+  " Linea: " + ErrorM.get(i).getLinea() + ", Columna: " + ErrorM.get(i).getCol() +", Error: " + ErrorM.get(i).getLex();
                 rErrores.add(ErrorM.get(i));

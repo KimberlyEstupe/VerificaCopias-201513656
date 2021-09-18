@@ -17,18 +17,26 @@ import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * 
  * @author Kimbe
  */
+
+/*
+    Genera los analizadores lexico y sintactico .java 
+    Para que funcionene corectamente
+
+*/
 public class Pruebas {
-    public static void main(String[] args) throws Exception {
-        String R1 = "src/Analizadores/";
-        String R2="src/Analizafca/LexifcaCUP.flex";
-        String[] RS = {"-parser", "Sintac","src/Analizadores/Sintac.cup"};
+    static String Lexico = "src/Analizadores/";
+    static String SintacticoFca="src/Analizafca/";
+    static String SintacticoJS = "src/AnalizaJS/";
+    
+    public static void main(String[] args) throws Exception {        
+        String[] RS = {"-parser", "Sintac","src/AnalizaJS/Sintac.cup"};
         String[] RS2 = {"-parser", "Sintacfca","src/Analizafca/Sintacfca.cup"};
         
-        AnalizarJS(R1+"LexiJS.flex", R1+"LexiJSCup.flex", RS);
-        Analizarfca(R1+"Lexifca.flex",R2,RS2 );
+        AnalizarJS(Lexico+"LexiJS.flex", SintacticoJS+"LexiJSCup.flex", RS);
+        Analizarfca(Lexico+"Lexifca.flex",SintacticoFca+"LexifcaCUP.flex",RS2 );
     }
     
     //*********************************** ANALIZADORES LEXICO Y SINTACTICO FCA ***************************************************************
@@ -61,7 +69,6 @@ public class Pruebas {
         );
      }
     
-    
     //*********************************** ANALIZADORES LEXICO Y SINTACTICO JS ***************************************************************
      public static void AnalizarJS(String R1,String R2,String[] RS) throws IOException, Exception{
         File archivo;
@@ -71,24 +78,24 @@ public class Pruebas {
         JFlex.Main.generate(archivo);
         java_cup.Main.main(RS);
         
-        Path rutaSym = Paths.get("src/Analizadores/sym.java");
+        Path rutaSym = Paths.get("src/AnalizaJS/sym.java");
         if (Files.exists(rutaSym)) { 
             Files.delete(rutaSym);
         }
         
         Files.move(
                 Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/sym.java"), 
-                Paths.get("src/Analizadores/sym.java")
+                Paths.get("src/AnalizaJS/sym.java")
         );        
         
-        Path rutaSin = Paths.get("src/Analizadores/Sintac.java");
+        Path rutaSin = Paths.get("src/AnalizaJS/Sintac.java");
         if (Files.exists(rutaSin)) {
             
             Files.delete(rutaSin);
         }
         Files.move(
                 Paths.get("E:/DOCUMENTOS(E)/NetBeans/VerificaCopias-201513656/P1_2S2021-201513656/Sintac.java"), 
-                Paths.get("src/Analizadores/Sintac.java")
+                Paths.get("src/AnalizaJS/Sintac.java")
         );
      }
     

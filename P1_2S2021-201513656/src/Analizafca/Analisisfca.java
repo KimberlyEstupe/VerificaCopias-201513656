@@ -14,7 +14,7 @@ import Analizafca.*;
  */
 public class Analisisfca {
     public static void AnalisisFC(String ST){
-        
+        //Manda a realizar el analisis sintectico
         Sintacfca AS = new Sintacfca(new Analizafca.LexifcaCUP(new StringReader(ST)));
         
         try {

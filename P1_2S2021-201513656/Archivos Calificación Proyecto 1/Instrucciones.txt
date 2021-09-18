@@ -1,0 +1,3 @@
+# INSTRUCCIONES
+- Agregar ProyectoA en la ruta "C:\OLC1\Proyectos\2S2021\ProyectoA"
+- Agregar ProyectoA en la ruta "C:\OLC1\Proyectos\2S2021\OtroProyecto\ProyectoB"

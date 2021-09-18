@@ -11,8 +11,6 @@ parser code
         this.s = s;
         int linea = s.right+1;
         int columna = s.left;
-        String encontrado = s.value.toString();
-        FVentanaP.AddES(encontrado, "Sintactico", "archivo",linea,columna);//Lista de Reporte
     }
 
     public Symbol getS(){

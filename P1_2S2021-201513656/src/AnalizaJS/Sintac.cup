@@ -1,4 +1,5 @@
-package Analizadores;
+package AnalizaJS;
+import Analizadores.*;
 import java_cup.runtime.Symbol;
 import java.util.ArrayList;
 import java.util.List;
